@@ -1,5 +1,16 @@
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+ZSH=$HOME/work/remote/dotfiles.git/zsh/oh-my-zsh
+
+export DEFAULT_USER="adelrior"
+#export EDITOR="vim"
+#bindkey -v 
+
+# vi style incremental search
+#bindkey '^R' history-incremental-search-backward
+#bindkey '^S' history-incremental-search-forward
+#bindkey '^P' history-search-backward
+#bindkey '^N' history-search-forward
+
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
