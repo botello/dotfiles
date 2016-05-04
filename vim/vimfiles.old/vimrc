@@ -1,0 +1,59 @@
+source $VIMRUNTIME/mswin.vim
+
+" Required by vundle
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+Bundle 'https://github.com/Lokaltog/vim-powerline.git'
+
+filetype plugin indent on     " required!
+
+set history=100
+set ffs=unix,dos,mac
+set viminfo+=!
+behave mswin
+
+set autoread
+set nobackup
+set autowrite
+set makeef=error.err
+
+syntax on
+"colorscheme evening
+colorscheme molokai
+
+set ruler
+set cmdheight=2
+set number
+set numberwidth=4
+set hid
+set backspace=2
+set whichwrap+=<,>,h,l
+
+set ignorecase
+set smartcase
+set cursorline
+set showmatch
+set hlsearch
+set incsearch
+set scrolloff=4
+set noerrorbells
+set laststatus=2
+set statusline=\(%02.n\)\ %<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+
+set autoindent
+set smartindent
+set cindent
+set tabstop=3
+set softtabstop=3
+set shiftwidth=3
+set expandtab
+set nowrap
+set smarttab
+set selection=exclusive
+

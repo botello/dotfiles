@@ -111,7 +111,6 @@ if s:molokai_original == 1
    hi Comment         guifg=#75715E
    hi CursorLine                    guibg=#3E3D32
    hi CursorColumn                  guibg=#3E3D32
-   hi ColorColumn                   guibg=#0B0D0E
    hi LineNr          guifg=#BCBCBC guibg=#3B3A32
    hi NonText         guifg=#272822 guibg=#3B3A32
 else
@@ -119,7 +118,6 @@ else
    hi Comment         guifg=#7C7C7C
    hi CursorLine                    guibg=#192729
    hi CursorColumn                  guibg=#192729
-   hi ColorColumn                   guibg=#272822
    hi LineNr          guifg=#535556 guibg=#131516
    hi NonText         guifg=#0B0D0E guibg=#0B0D0E
 end

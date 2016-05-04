@@ -1,0 +1,21 @@
+--recurse=yes
+--exclude=.git
+--exclude=.svn
+--langdef=verilog_systemverilog
+--langmap=verilog_systemverilog:.sv.svh.svi.svm
+--regex-verilog_systemverilog=/^[ \t]*(virtual)?[ \t]*class[ \t]*([a-zA-Z_0-9]+)/\2/c, class, classes/
+--regex-verilog_systemverilog=/^[ \t]*(virtual)?[ \t]*task[ \t]*.*[ \t]+([a-zA-Z_0-9]+)[ \t]*[(;]/\2/t, task, tasks/
+--regex-verilog_systemverilog=/^[ \t]*function[ \t]+((automatic|static|signed|unsigned|[ \t])+)*([a-zA-Z_0-9]+)[ \t]+([a-zA-Z_0-9]+)[ \t]*[(;]/\4 [\3]/f, function, functions/
+--regex-verilog_systemverilog=/^[ \t]*module[ \t]*([a-zA-Z_0-9]+)/\1/m, module, modules/
+--regex-verilog_systemverilog=/^[ \t]*program[ \t]*([a-zA-Z_0-9]+)/\1/p, program, programs/
+--regex-verilog_systemverilog=/^[ \t]*interface[ \t]*([a-zA-Z_0-9]+)/\1/i, interface, interfaces/
+--regex-verilog_systemverilog=/^[ \t]*modport[ \t]*([a-zA-Z_0-9]+)/\1/q, modport, modports/
+--regex-verilog_systemverilog=/^[ \t]*typedef[ \t]*.*[ \t]+([a-zA-Z_0-9]+)[ \t]*[{;]/\1/d,typedef, types/
+--regex-verilog_systemverilog=/^[ \t]*(localparam|parameter)[ \t]*(.*)[ \t]+([a-zA-Z_0-9]+)[ \t]*=/\3 [\2]/r, parameter, parameters/
+--regex-verilog_systemverilog=/^[ \t]*`define[ \t]+([a-zA-Z_0-9]+)[ \t]*\(/\1/a, macro, macros/
+--regex-verilog_systemverilog=/^[ \t]*([a-zA-Z_:0-9]+)[ \t]+((\[.*\]|[ \t])+)*([a-zA-Z_0-9]+)((\[.*\]|[ \t])+)*;/\4 [\1]/v, variable, variables/
+--regex-verilog_systemverilog=/^[ \t]*covergroup[ \t]+([a-zA-Z_0-9]+)[ \t].*(@[a-zA-Z_0-9]+)/\1 [\2]/g, covergroup, covergroups/
+--regex-verilog_systemverilog=/^[ \t]*always[_]?(ff|comb|latch)?.*:[ \t]+([a-zA-Z_0-9]+)/\2 [\1]/w, process, processes/
+--regex-verilog_systemverilog=/^[ \t]*\`MSFF.*:[ \t]+([a-zA-Z_0-9]+)/\2 [\1]/w, ff macro, ff macros/
+--verilog_systemverilog-kinds=+ctfmpidravgw
+

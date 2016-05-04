@@ -10,7 +10,7 @@ if exists("b:did_ftplugin")
 endif
 
 
-au BufRead,BufNewFile *.v,*.vh,*.sv,*.vm,*vi,*.svh,*.svm,*.vs,*.vhi,*.vi,*.vlib set filetype=sv
+au BufRead,BufNewFile *.v,*.vh,*.sv,*.svh,*.svm		set filetype=verilog_systemverilog
 
 " Behaves just like Verilog
 runtime! ftplugin/verilog.vim

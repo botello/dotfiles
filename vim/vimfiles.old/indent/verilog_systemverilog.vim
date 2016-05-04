@@ -28,7 +28,7 @@ if exists("b:did_indent")
 endif
 let b:did_indent = 1
 
-setlocal indentexpr=GetSVIndent()
+setlocal indentexpr=GetVerilog_SystemVerilogIndent()
 setlocal indentkeys=!^F,o,O,0),0},=begin,=end,=join,=endcase,=join_any,=join_none
 setlocal indentkeys+==endmodule,=endfunction,=endtask,=endspecify
 setlocal indentkeys+==endclass,=endpackage,=endsequence,=endclocking
@@ -36,13 +36,13 @@ setlocal indentkeys+==endinterface,=endgroup,=endprogram,=endproperty
 setlocal indentkeys+==`else,=`endif
 
 " Only define the function once.
-if exists("*GetSVIndent")
+if exists("*GetVerilog_SystemVerilogIndent")
   finish
 endif
 
 set cpo-=C
 
-function GetSVIndent()
+function GetVerilog_SystemVerilogIndent()
 
   if exists('b:verilog_indent_width')
     let offset = b:verilog_indent_width
@@ -74,7 +74,7 @@ function GetSVIndent()
   "   Exclude the match of //, /* or */
   let vlog_openstat = '\(\<or\>\|\([*/]\)\@<![*(,{><+-/%^&|!=?:]\([*/]\)\@!\)'
   " Define the condition when the statement ends with a one-line comment
-  let vlog_comment = '\(//.*\|/\*.*\*/\s*\)'
+  let vlog_comment = '\(//.*\|///.*\|/\*.*\*/\s*\)'
   if exists('b:verilog_indent_verbose')
     let vverb_str = 'INDENT VERBOSE:'
     let vverb = 1

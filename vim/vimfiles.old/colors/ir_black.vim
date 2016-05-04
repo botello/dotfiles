@@ -92,14 +92,12 @@ hi WarningMsg       guifg=white       guibg=#FF6C60     gui=BOLD      ctermfg=wh
 
 " Message displayed in lower left, such as --INSERT--
 hi ModeMsg          guifg=black       guibg=#C6C5FE     gui=BOLD      ctermfg=black       ctermbg=cyan        cterm=BOLD
-" Flags (modified, read only, etc.) in status line
-"hi User1            guifg=black       guibg=#C6C5FE     gui=BOLD      ctermfg=black       ctermbg=cyan        cterm=BOLD
 
 if version >= 700 " Vim 7.x specific colors
   hi Search         guifg=black       guibg=#A8FF60     gui=NONE      ctermfg=black       ctermbg=green       cterm=NONE
   "hi Search         guifg=NONE        guibg=NONE        gui=underline ctermfg=NONE        ctermbg=NONE        cterm=underline
   hi CursorLine     guifg=NONE        guibg=#202020     gui=NONE      ctermfg=NONE        ctermbg=NONE        cterm=BOLD
-  hi CursorColumn   guifg=NONE        guibg=#202020     gui=NONE      ctermfg=NONE        ctermbg=NONE        cterm=NONE
+  hi CursorColumn   guifg=NONE        guibg=NONE        gui=BOLD      ctermfg=NONE        ctermbg=NONE        cterm=NONE
   hi MatchParen     guifg=#f6f3e8     guibg=#857b6f     gui=BOLD      ctermfg=white       ctermbg=darkgray    cterm=NONE
   hi Pmenu          guifg=#f6f3e8     guibg=#444444     gui=NONE      ctermfg=NONE        ctermbg=NONE        cterm=NONE
   hi PmenuSel       guifg=#000000     guibg=#cae682     gui=NONE      ctermfg=NONE        ctermbg=NONE        cterm=NONE
@@ -115,7 +113,7 @@ hi PreProc          guifg=#96CBFE     guibg=NONE        gui=NONE      ctermfg=bl
 hi Conditional      guifg=#6699CC     guibg=NONE        gui=NONE      ctermfg=blue        ctermbg=NONE        cterm=NONE  " if else end
 hi Label            guifg=#336688     guibg=NONE        gui=NONE      ctermfg=darkblue    ctermbg=NONE        cterm=NONE
 
-hi Todo             guifg=#FF6C60     guibg=NONE        gui=underline ctermfg=red         ctermbg=NONE        cterm=underline
+hi Todo             guifg=#96CBFE     guibg=NONE        gui=NONE      ctermfg=blue        ctermbg=NONE        cterm=NONE
 hi Constant         guifg=#99CC99     guibg=NONE        gui=NONE      ctermfg=cyan        ctermbg=NONE        cterm=NONE
 
 hi Identifier       guifg=#C6C5FE     guibg=NONE        gui=NONE      ctermfg=cyan        ctermbg=NONE        cterm=NONE
@@ -126,9 +124,6 @@ hi Statement        guifg=#6699CC     guibg=NONE        gui=NONE      ctermfg=li
 hi Special          guifg=#E18964     guibg=NONE        gui=NONE      ctermfg=white       ctermbg=NONE        cterm=NONE
 hi Delimiter        guifg=#00A0A0     guibg=NONE        gui=NONE      ctermfg=cyan        ctermbg=NONE        cterm=NONE
 hi Operator         guifg=white       guibg=NONE        gui=NONE      ctermfg=white       ctermbg=NONE        cterm=NONE
-
-" Highlight text over 80 columns.
-hi OverLength       guifg=NONE        guibg=NONE        gui=undercurl ctermfg=white       ctermbg=red         cterm=NONE  guisp=cyan " undercurl color
 
 
 hi link Character       Constant
@@ -148,12 +143,8 @@ hi link SpecialChar     Special
 hi link SpecialComment  Special
 hi link Debug           Special
 
-
-hi pfmCommentTitle guifg=#9C9C9C     guibg=NONE        gui=NONE      ctermfg=brown  ctermbg=NONE        cterm=NONE
-hi pfmType         guifg=#66CCCC     guibg=NONE        gui=NONE      ctermfg=brown  ctermbg=NONE        cterm=NONE
-hi pfmConstant     guifg=#66CCCC     guibg=NONE        gui=NONE      ctermfg=brown  ctermbg=NONE        cterm=NONE
-hi pfmMethod       guifg=#66CCCC     guibg=NONE        gui=NONE      ctermfg=brown  ctermbg=NONE        cterm=NONE
-
+" Highlight text over 80 columns.
+hi OverLength       guifg=NONE        guibg=#532929     gui=NONE      ctermfg=white       ctermbg=red         cterm=NONE
 
 " Special for Ruby
 hi rubyRegexp                  guifg=#B18A3D      guibg=NONE      gui=NONE      ctermfg=brown          ctermbg=NONE      cterm=NONE
