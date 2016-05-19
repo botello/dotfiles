@@ -28,8 +28,10 @@ function __prompt_command() {
   local Whi='\[\e[0;37m\]'; local BWhi='\[\e[1;37m\]';  local UWhi='\[\e[4;37m\]';  local IWhi='\[\e[0;97m\]';  local BIWhi='\[\e[1;97m\]'; local On_Whi='\e[47m';  local On_IWhi='\[\e[0;107m\]';
 
   if [[ $EXIT == 0 ]]; then
-    PS1+="${Gre}${On_Bla}${RCol} "
+    PS1+="${Gre}${On_Bla}>${RCol} "
+    #PS1+="${Gre}${On_Bla}${RCol} "
   else
-    PS1+="${BWhi}${On_Red}${EXIT} ${Red}${On_Bla}${RCol} "
+    PS1+="${BWhi}${On_Red}${EXIT} ${Red}${On_Bla}>${RCol} "
+    #PS1+="${BWhi}${On_Red}${EXIT} ${Red}${On_Bla}${RCol} "
   fi
 }
