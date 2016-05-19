@@ -1,0 +1,31 @@
+if ($?prompt) then
+
+  ### advanced tcsh options; see tcsh(1) and uncomment the ones you like
+  if ($?tcsh) then
+
+    set BASE16_SHELL="$HOME/dotfiles/shell/base16-shell/base16-monokai.dark.sh"
+    if (-s $BASE16_SHELL) $BASE16_SHELL
+    unset BASE16_SHELL
+    set ellipsis
+
+    # Prompt info -- including colors
+    # http://www.tcsh.org/tcsh.html/Special_shell_variables.html
+
+    # Simplest
+    #set prompt="[%?]%# "
+    #set rprompt="#%c03"
+
+    # Simplest -- with colors
+    set prompt="%{\033[0;37;45m%} %? %{\033[1;37;44m%}%#%{\033[0m%} "
+    set rprompt="#%c03"
+
+    #set prompt="%{\033[0;37;44m%} %? %{\033[0;34;47m%}  %{\033[1;37;45m%}%  %{\033[0;35;40m%}   %{\033[0m%} "
+    #set rprompt="#%c03"
+    #set rprompt="%S#%s%c02"
+    # special chars:  
+    #set prompt="%S %? %s "
+    #set prompt="%{\033[0;30;45m%} %? %{\033[0;35;40m%}%{\033[0m%} "
+    #set rprompt="%{\033[1;37;40m%}%{\033[0;30;47m%} %c03 %{\033[0m%} "
+
+  endif
+endif
