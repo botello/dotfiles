@@ -1,23 +1,95 @@
 defutf8 on
 utf8 on on
 
-#term "screen-256color"
-term "putty-256color"
-
 vbell off
 startup_message off
 
-caption always "%{kY} %n%f* %t %?%{YR}⮀%{kR} %u %{Rb}%:%{Yb}%?%?%F%{.b}⮀%:%{.w}⮀%?%="
-hardstatus alwayslastline "%{bk} %S %{kb}⮀ $LOGNAME %{bk}⮀ %H %?%{kb}⮀%{kY} %-Lw%{Yk}⮀%:%{Yb}⮀%{Yk}%?%{Yk} %n%f* %t %{kY}⮀%+Lw %-="
-#caption always "%{kY} %n%f* %t %?%{YR}||%{kR} %u %{Rb}%:%{Yb}%?%?%F%{.b}||%:%{.w}||%?%="
-#hardstatus alwayslastline "%{bk} %S %{kb} $LOGNAME %{bk}|| %H %?%{kb}||%{kY} %-Lw%{Yk}||%:%{Yb}||%{Yk}%?%{Yk} %n%f* %t %{kY}||%+Lw %-="
+#term "screen-256color"
+#term "putty-256color"
+#terminfo xterm-color hs@:cs=\E[%i%p1%d;%p2%dr:im=\E[4h:ei=\E[4l
+#term xterm-color
 
+# Pull toolbar info in XTerm
+#termcapinfo xterm*|Eterm|mlterm "hs:ts=\E]0;:fs=\007:ds=\E]0;screen\007"
+
+#
+# Improved format
+#
+hardstatus off
+hardstatus ignore
+caption on
+caption always "%?%F%{= mw}%:%{= Kk}%?   %-w%?%F%{ck}%:%{wK}%? %n*%f %t %{-}%+w"
+sorendition "= rw"
+
+#
+# Simple format
+#
+#caption splitonly "%?%F%{= Kw}%:%{= kK}%?[%n %t]"
+#hardstatus alwayslastline '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d/%m %{W}%c %{g}]'
+#sorendition "= Kk"
+
+# Huge scrollback buffer
 defscrollback 10000
 
-screen -t sh    0 /usr/bin/env bash -l
-screen -t sh    1 /usr/bin/env bash -l
-screen -t sh    2 /usr/bin/env bash -l
-screen -t sh    3 /usr/bin/env bash -l
-screen -t sh    4 /usr/bin/env bash -l
+# mouse tracking allows to switch region by clicking
+# CAUTION: interferes with mouse select/click/copy-paste
+#mousetrack on
 
+#
+# New bindings
+#
+bind x   # Disable screen locking
+bind ^X  # Disable Xon/Xoff shit
+# Reload .screenrc
+bind R eval "source $HOME/.screenrc" "echo '.screenrc reloaded'"
+
+#
+# Create default windows
+#
+screen -t sh   1 /usr/bin/env tcsh
+screen -t sh   2 /usr/bin/env tcsh
+screen -t sh   3 /usr/bin/env tcsh
+screen -t sh   4 /usr/bin/env tcsh
+screen -t sh   0 /usr/bin/env tcsh
 select 0
+
+#
+# ^J puts Screen into resize mode.  Resize regions using hjkl keys.
+#
+bind "^J" eval "command -c rsz"  # enter resize mode
+bind -c rsz h eval "resize -h -5" "command -c rsz"
+bind -c rsz j eval "resize -v -5" "command -c rsz"
+bind -c rsz k eval "resize -v +5" "command -c rsz"
+bind -c rsz l eval "resize -h +5" "command -c rsz"
+
+#
+# Layouts
+#
+layout autosave on
+layout new default
+select 0
+layout new one
+select 1
+split
+resize -v +8
+focus down
+select 2
+focus up
+layout new two
+select 3
+split
+resize -v -8
+focus down
+select 4
+focus up
+
+layout attach default
+layout select default
+
+bind "^L" eval "command -c lyt"  # enter switch layout mode
+bind -c lyt h eval "layout prev" "command -c lyt"
+bind -c lyt j eval "layout next" "command -c lyt"
+bind -c lyt k eval "layout prev" "command -c lyt"
+bind -c lyt l eval "layout next" "command -c lyt"
+#bind -c lyt n eval "layout new" "command -c lyt"
+#bind -c lyt x eval "layout remove" "command -c lyt"
