@@ -7,17 +7,24 @@
 "--------------------------------------------------------------------------
 " General settings
 "--------------------------------------------------------------------------
-source $VIMRUNTIME/mswin.vim
+"source $VIMRUNTIME/vimrc_example.vim
+"source $VIMRUNTIME/mswin.vim
 set nocompatible
-behave mswin
+"behave mswin
 filetype off
 
 "--------------------------------------------------------------------------
 " Fixes for specific terminals
 "--------------------------------------------------------------------------
-if $COLORTERM == 'gnome-terminal'
-  set t_Co=256
-  let base16colorspace=256
+"if $COLORTERM == 'gnome-terminal'
+if $COLORTERM == '1'
+    set t_Co=256
+    let base16colorspace=256
+endif
+
+" In many terminal emulators the mouse works just fine, thus enable it.
+if has('mouse')
+    set mouse=a
 endif
 
 "--------------------------------------------------------------------------
@@ -38,12 +45,14 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'chriskempson/base16-vim'
 Plugin 'craigemery/vim-autotag'
 Plugin 'scrooloose/syntastic'
+Plugin 'airblade/vim-gitgutter'
 
 Plugin 'vhda/verilog_systemverilog.vim'
 Plugin 'vim-scripts/verilog_emacsauto.vim'
 
 call vundle#end()
 filetype plugin indent on
+"set autoindent  " always set autoindenting on
 
 "--------------------------------------------------------------------------
 " Settings
@@ -55,8 +64,7 @@ set autochdir history=1000
 set shortmess=atI report=0 showcmd hidden
 set completeopt=longest,menu " for omnipotent
 
-"set lines=50 columns=100
-set number colorcolumn=+2
+set number colorcolumn=80
 "set textwidth=78  " auto break lines
 set nowrap linebreak
 set hlsearch incsearch ignorecase smartcase
@@ -79,7 +87,7 @@ nnoremap <space> za
 vnoremap <space> zf
 
 " Spaces instead of tabs
-let tabsize=2
+let tabsize=4
 execute "set tabstop=".tabsize
 execute "set shiftwidth=".tabsize
 execute "set softtabstop=".tabsize
@@ -93,22 +101,22 @@ match Visual "\s\+$"
 
 " Search for (visual) selected text using mapped '*' and '#'.
 vnoremap <silent> * :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy/<C-R><C-R>=substitute(
-    \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
+    \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+    \gvy/<C-R><C-R>=substitute(
+        \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+    \gV:call setreg('"', old_reg, old_regtype)<CR>
 vnoremap <silent> # :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy?<C-R><C-R>=substitute(
-    \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
+    \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+    \gvy?<C-R><C-R>=substitute(
+        \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+    \gV:call setreg('"', old_reg, old_regtype)<CR>
 
 " Tag file location
 set tags=tags;
 
 " Remember cursor position between vim sessions
 if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 endif
 
 " Trailing whitespace
@@ -116,27 +124,33 @@ set nolist
 set listchars=tab:»·,trail:·,extends:»,precedes:«,eol:¶
 " Only shown when not in insert mode so I don't go insane.
 augroup trailing
-  au!
-  au InsertEnter * execute "set list"
-  au InsertLeave * execute "set nolist"
+    au!
+    au InsertEnter * execute "set list"
+    au InsertLeave * execute "set nolist"
 augroup END
 
 " Only show cursorline in the current window and in normal mode.
 augroup cline
-  au!
-  au WinLeave * set nocursorcolumn
-  au WinEnter * set cursorcolumn
-  au InsertEnter * set nocursorcolumn
-  au InsertLeave * set cursorcolumn
-  au WinLeave * set nocursorline
-  au WinEnter * set cursorline
-  au InsertEnter * set nocursorline
-  au InsertLeave * set cursorline
+    au!
+    "au WinLeave * set nocursorcolumn
+    "au WinEnter * set cursorcolumn
+    "au InsertEnter * set nocursorcolumn
+    "au InsertLeave * set cursorcolumn
+    au WinLeave * set nocursorline
+    au WinEnter * set cursorline
+    au InsertEnter * set nocursorline
+    au InsertLeave * set cursorline
 augroup END
 
 " Maping next/prev buffer to <TAB> and <SHIFT-TAB> key in cmd mode
-nnoremap <silent> <tab> :bnext<cr>
-nnoremap <silent> <s-tab> :bprev<cr>
+nnoremap <silent> <Tab> :bnext<cr>
+nnoremap <silent> <S-Tab> :bprev<cr>
+
+" Maping next/prev buffer to <ALT-l> and <ALT-h> key in cmd mode
+"execute "set <A-h>=\eh"
+"execute "set <A-l>=\el"
+"nnoremap <silent> <A-h> :bprev<cr>
+"nnoremap <silent> <A-l> :bnext<cr>
 
 " Disable backup file, enable read modified files
 set nobackup nowarn noswapfile
@@ -150,94 +164,90 @@ autocmd GUIEnter * set visualbell t_vb=
 vnoremap < <gv
 vnoremap > >gv
 
-"   set diffexpr=MyDiff()
-"   function MyDiff()
-"       let opt = '-a --binary '
-"       if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-"       if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-"       let arg1 = v:fname_in
-"       if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-"       let arg2 = v:fname_ne:e
-"       if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-"       let arg3 = v:fname_out
-"       if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-"       let eq = ''
-"       if $VIMRUNTIME =~ ' '
-"           if &sh =~ '\<cmd'
-"               let cmd = '""' . $VIMRUNTIME . '\diff"'
-"               let eq = '"'
-"           else
-"               let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-"           endif
-"       else
-"           let cmd = $VIMRUNTIME . '\diff'
-"       endif
-"       silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-"   endfunction
+" Grepping
+nnoremap <F3> :execute "grep -srnwI --exclude-dir=.git --exclude=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
 
 "--------------------------------------------------------------------------
 " Plugin configuration
 "--------------------------------------------------------------------------
 
-let g:airline_detect_spell = 0
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_tab_type = 0
-let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#whitespace#show_message = 0
-let g:airline_mode_map = {
-    \ '__' : '-',
-    \ 'n'  : 'N',
-    \ 'i'  : 'I',
-    \ 'R'  : 'R',
-    \ 'c'  : 'C',
-    \ 'v'  : 'V',
-    \ 'V'  : 'V',
-    \ '' : 'V',
-    \ 's'  : 'S',
-    \ 'S'  : 'S',
-    \ '' : 'S',
-    \ }
+function! AirlineInit()
+    let g:airline_detect_spell = 0
+    let g:airline_powerline_fonts = 0
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#show_tab_type = 0
+    let g:airline#extensions#tabline#fnamemod = ':t'
+    let g:airline#extensions#syntastic#enabled = 1
+    let g:airline#extensions#whitespace#show_message = 1
+    let g:airline_left_sep = '»'
+    let g:airline_left_sep = '▶'
+    let g:airline_right_sep = '«'
+    let g:airline_right_sep = '◀'
+    let g:airline_mode_map = {
+        \ '__' : '-',
+        \ 'n'  : 'N',
+        \ 'i'  : 'I',
+        \ 'R'  : 'R',
+        \ 'c'  : 'C',
+        \ 'v'  : 'V',
+        \ 'V'  : 'V',
+        \ '' : 'V',
+        \ 's'  : 'S',
+        \ 'S'  : 'S',
+        \ '' : 'S',
+        \ }
+endfunction
+autocmd VimEnter * call AirlineInit()
+
+let g:syntastic_c_remove_include_errors = 1
+let g:syntastic_c_no_include_search = 1
 
 syntax enable
 set background=dark
 colorscheme base16-monokai
 
+"--------------------------------------------------------------------------
+" Tools
+"--------------------------------------------------------------------------
+if has("autocmd")
+    autocmd BufNewFile,BufRead *.[ch] set formatprg=~/tools/astyle\ -A14s4
+endif
+
 "#############################################################################
 " GUI settings (.gvimrc)
 "#############################################################################
 if has("gui_running")
-  if has("gui_gtk2")
-    "set guifont=Meslo\ LG\ S\ DZ\ 13
-    "set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline\ 12
-    "set guifont=Bistream\ Vera\ Sans\ Mono\ 11
-    set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
-    "set printfont=Monospace\ 11
-    set printfont=Monospace\ 11
-  elseif has("gui_win32")
-    "set guifont=Fira_Mono_for_Powerline:h9:cANSI
-    "set guifont=Sauce_Code_Powerline:h9:cANSI
-    "set guifont=Menlo_for_PowerLine:h10:cANSI
-    set guifont=Droid_Sans_Mono_Slashed_for_Pow:h8:cANSI
-    "set guifont=Droid_Sans_Mono:h10:cANSI
-    "set guifont=Consolas:h11:cANSI
-    set printfont=Consolas:h10:cANSI
-  endif
+    if has("gui_gtk2")
+        "set guifont=Meslo\ LG\ S\ DZ\ 13
+        "set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline\ 12
+        "set guifont=Bistream\ Vera\ Sans\ Mono\ 11
+        "set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 11
+        set printfont=Monospace\ 11
+        set printfont=Monospace\ 11
+    elseif has("gui_win32")
+        "set guifont=Fira_Mono_for_Powerline:h9:cANSI
+        "set guifont=Sauce_Code_Powerline:h9:cANSI
+        "set guifont=Menlo_for_PowerLine:h10:cANSI
+        set guifont=Droid_Sans_Mono_Slashed_for_Pow:h8:cANSI
+        "set guifont=Droid_Sans_Mono:h10:cANSI
+        "set guifont=Consolas:h11:cANSI
+        set printfont=Consolas:h10:cANSI
+    endif
 
-  set lines=50 columns=100
+    set lines=80 columns=100
 
-  set linespace=-1   " vertical space between text lines.
+    set linespace=0   " vertical space between text lines.
 
-  set guioptions-=b
-  set guioptions-=m
-  set guioptions-=T
+    set guioptions-=b
+    set guioptions-=m
+    set guioptions-=T
 
-  " Toggle Menu and Toolbar
-  map <silent> <F11> :if &guioptions =~# 'T' <Bar>
-    \set guioptions-=m <Bar>
-    \set guioptions-=T <Bar>
-  \else <Bar>
-    \set guioptions+=m <Bar>
-    \set guioptions+=T <Bar>
-  \endif<CR>
+    " Toggle Menu and Toolbar
+    map <silent> <F11> :if &guioptions =~# 'T' <Bar>
+        \set guioptions-=m <Bar>
+        \set guioptions-=T <Bar>
+        \else <Bar>
+        \set guioptions+=m <Bar>
+        \set guioptions+=T <Bar>
+        \endif<CR>
 endif
