@@ -3,25 +3,81 @@
 # $Source: /nfs/pdx/disks/comp.ct.3/source_archives/pkgs/eclogin/cvs/ec_environ-1.0/release/user/fvwm2rc-theme,v $
 # $Revision: 1.16 $
 #
-
 ## See /usr/intel/common/pkgs/eclogin/1.0/ec/fvwm2rc-theme and fvwm(1)
 
-## You can override anything in the above file in this file.
+AddToFunc "Move-or-Raise" "M" Move
++                         "M" Raise
++                         "C" Raise
++                         "D" Maximize 100 100
 
+AddToFunc "Move-or-Lower" "M" Move
++                         "M" Lower
++                         "C" Lower
++                         "D" RaiseLower
 
-## Uncomment this for more colorful title bars.  Do NOT use this if you run
-## an 8-bit (256 color) display with color hungry applications (Cadence)!
-#TitleStyle ActiveUp (HGradient 40 2 tan 50 peru 50 tan) -- sunk
-#TitleStyle ActiveDown (HGradient 40 2 peru 50 tan 50 peru) -- flat
-#TitleStyle Inactive (HGradient 40 2 darkslateblue 50 slateblue 50 darkslateblue) -- raised
+AddToFunc "Resize-or-Raise" "M" Resize
++                         "M" Raise
++                         "C" Raise
++                         "D" RaiseLower
 
+AddToFunc "Move-or-Iconify" "M" Move
++                         "C" Iconify
 
-## Uncomment this for an 'X' shaped button - use with caution!
-#
-# this is off by default because it's dangerous; use Window_Ops -> Close instead
-#Mouse 0 7 A Delete
-Mouse 0 7 A Close
+#### Title Bar Buttons are numbered like so: 13579------------08642
 
+# Menu Button
+ButtonStyle 1 Vector 5 20x40@1 20x60@1 80x60@0 80x40@0 20x40@1
+# Stick Button (Pushpin)
+ButtonStyle 3 10 25x20@1 30x25@1 30x55@1 43x55@0 50x85@1 57x55@0 70x55@0 70x25@0 75x20@0 25x20@1
+# Shade Button
+ButtonStyle 5 Vector 5 20x40@0 20x60@0 80x60@1 80x40@1 20x40@0
+# Lightning Bolt Button
+#ButtonStyle 7 Vector 7 70x15@0 30x55@1 50x55@0 40x85@1 80x45@0 60x45@1 70x15@0
+
+# Maximize Horizontally Button
+ButtonStyle 0 13 10x50@1 30x25@1 30x40@1 30x40@1 60x40@1 60x25@1 85x50@1 60x75@0 60x60@0 30x60@0 30x75@0 10x50@0 10x50@1
+# Maximize Vertically Button
+ButtonStyle 8 12 50x10@1 25x30@1 40x30@1 40x60@1 25x60@1 50x85@1 75x60@0 60x60@0 60x30@0 75x30@0 50x10@0 50x10@1
+# Iconify Button
+ButtonStyle 6 Vector 4 50x65@1 35x35@1 65x35@1 50x65@0
+# Maximize Button
+ButtonStyle 4 Vector 4 50x35@1 65x65@0 35x65@0 50x35@1
+# Delete/Kill Button (X shaped)
+ButtonStyle 2 Vector 17 20x20@1 30x20@1 50x40@1 70x20@1 80x20@1 80x30@0 60x50@0 80x70@1 80x80@0 70x80@0 50x60@0 30x80@0 20x80@0 20x70@0 40x50@1 20x30@0 20x20@1
+
+############################################################################
+# Mouse Bindings
+############################################################################
+
+#### Mouse Bindings for the Title Bar Buttons above
+# Button|Context|Modifi|Function
+
+Mouse 0 1   A   PopUp "Window_Ops"
+Mouse 0 3   A   Stick
+Mouse 0 5   A   WindowShade
+
+Mouse 0 0   A   Maximize 100 0
+Mouse 0 8   A   Maximize 0 100
+Mouse 0 6   A   Iconify
+Mouse 0 4   A   Maximize 100 100
+Mouse 0 2   A   Close
+
+Mouse 1 R   A   PopUp "MainMenu"
+Mouse 3 TFS A   PopUp "Window_Ops"
+Mouse 3 R   A   WindowList
+Mouse 3 R   A   Module FvwmPager -transient
+Mouse 4 R   A   Scroll +0 -20
+Mouse 5 R   A   Scroll +0 +20
+Mouse 4 A   M   Scroll +0 -10
+Mouse 5 A   M   Scroll +0 +10
+Mouse 4 A   MC  Scroll -10 +0
+Mouse 5 A   MC  Scroll +10 +0
+
+Mouse 1 FS  A   Function "Resize-or-Raise"
+Mouse 1 TI  A   Function "Move-or-Raise"
+
+#Mouse 1 I   A   Function "Move-or-Iconify"
+#Mouse 3 I   A   PopUp "Window_Ops"
 
 # MouseFocus is the default if none is
 # specified; focus changes as mouse enters
@@ -154,8 +210,11 @@ XORvalue 208
 SnapAttraction 20 SameType
 
 # Font configuration
-#WindowFont      -adobe-helvetica-bold-r-*-*-14-*-*-*-*-*-*-*
+#WindowFont      -adobe-helvetica-bold-r-*-*-12-*-*-*-*-*-*-*
 #IconFont        -adobe-helvetica-bold-r-*-*-10-*-*-*-*-*-*-*
+WindowFont      -adobe-helvetica-bold-r-*-*-12-*-*-*-*-*-*-*
+IconFont        -adobe-helvetica-bold-r-*-*-10-*-*-*-*-*-*-*
+
 
 # HighlightColor
 #HilightColor  linen SteelBlue4
@@ -175,16 +234,8 @@ TitleStyle LeftJustified
 
 # Button Styles
 ButtonStyle All -- UseTitleStyle flat
-#ButtonStyle 1 14 20x20@1 20x70@1 70x70@0 70x20@0 20x20@1 60x60@0 60x50@0 60x60@0 50x60@0 60x60@0 60x80@0 80x80@0 80x60@0 60x60@0
-#ButtonStyle 2 16 60x40@1 60x80@0 15x80@0 15x40@1 60x40@1 40x40@1 40x25@1 75x25@1 75x60@0 60x60@0 75x60@0 75x40@0 85x40@0 85x15@0 60x15@1 60x25@1 
-#ButtonStyle 4 12 50x10@1 25x35@1 40x35@1 40x60@1 25x60@1 50x85@1 75x60@0 60x60@0 60x35@0 75x35@0 50x10@0 50x10@1 
-#ButtonStyle 6 12 10x50@1 35x25@1 35x40@1 65x40@1 65x25@1 90x50@1 65x75@0 65x60@0 35x60@0 35x75@0 10x50@0 10x50@1
-#ButtonStyle 8 17 20x20@1 30x20@1 50x40@1 70x20@1 80x20@1 80x30@0 60x50@0 80x70@1 80x80@0 70x80@0 50x60@0 30x80@0 20x80@0 20x70@0 40x50@1 20x30@0 20x20@1
 
 # MenuStyle 
-#MenuStyle * background #455561, ActiveFore #ccfcf0, ForeGround black
-#MenuStyle * popupoffset 0 100
-#MenuStyle * MenuFace HGradient 64 1 #758591 100 #102030, Animation
 MenuStyle * background SteelBlue4, ActiveFore LightSteelBlue, ForeGround linen
 MenuStyle * popupoffset 0 100
 MenuStyle * MenuFace Animation
@@ -199,7 +250,7 @@ MenuStyle * MenuFace Animation
 #EdgeScroll      100 100
 
 # OpaqueMoveSize percentage
-OpaqueMoveSize 1
+OpaqueMoveSize 100
 
 # Style related options
 Style "*" ForeColor grey40

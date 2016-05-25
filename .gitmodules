@@ -7,3 +7,9 @@
 [submodule "tools/powerline-fonts"]
 	path = tools/powerline-fonts
 	url = https://github.com/powerline/fonts
+[submodule "tools/Colormake"]
+	path = tools/Colormake
+	url = https://github.com/pagekite/Colormake
+[submodule "tools/the_silver_searcher"]
+	path = tools/the_silver_searcher
+	url = https://github.com/ggreer/the_silver_searcher

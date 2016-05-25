@@ -69,7 +69,7 @@ set number colorcolumn=80
 set nowrap linebreak
 set hlsearch incsearch ignorecase smartcase
 set nolazyredraw
-set scrolloff=4
+set scrolloff=5
 set wildignore=.svn,CVS,.git,.hg,*.o,*.so,*.obj,*.swp,*.jpg,*.png,*.gif
 set wildmenu
 set wildmode=list:longest,full
@@ -171,7 +171,7 @@ nnoremap <F3> :execute "grep -srnwI --exclude-dir=.git --exclude=tags . -e " . e
 " Plugin configuration
 "--------------------------------------------------------------------------
 
-function! AirlineInit()
+"function! AirlineInit()
     let g:airline_detect_spell = 0
     let g:airline_powerline_fonts = 0
     let g:airline#extensions#tabline#enabled = 1
@@ -196,8 +196,8 @@ function! AirlineInit()
         \ 'S'  : 'S',
         \ '' : 'S',
         \ }
-endfunction
-autocmd VimEnter * call AirlineInit()
+"endfunction
+"autocmd VimEnter * call AirlineInit()
 
 let g:syntastic_c_remove_include_errors = 1
 let g:syntastic_c_no_include_search = 1
@@ -210,7 +210,7 @@ colorscheme base16-monokai
 " Tools
 "--------------------------------------------------------------------------
 if has("autocmd")
-    autocmd BufNewFile,BufRead *.[ch] set formatprg=~/tools/astyle\ -A14s4
+    autocmd BufNewFile,BufRead *.[ch] set formatprg=~/tools/astyle\ -A8s4pUHk3z2W3
 endif
 
 "#############################################################################
@@ -222,7 +222,7 @@ if has("gui_running")
         "set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline\ 12
         "set guifont=Bistream\ Vera\ Sans\ Mono\ 11
         "set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 11
-        set printfont=Monospace\ 11
+        set guifont=Monospace\ 11
         set printfont=Monospace\ 11
     elseif has("gui_win32")
         "set guifont=Fira_Mono_for_Powerline:h9:cANSI
@@ -234,9 +234,12 @@ if has("gui_running")
         set printfont=Consolas:h10:cANSI
     endif
 
+    let g:airline_powerline_fonts = 0
+
     set lines=80 columns=100
 
-    set linespace=0   " vertical space between text lines.
+    " vertical space between text lines.
+    set linespace=0
 
     set guioptions-=b
     set guioptions-=m

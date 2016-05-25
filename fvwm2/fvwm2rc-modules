@@ -56,7 +56,8 @@
 
 
 ###----->Pager<-----
-*FvwmPager: Geometry 100x100-0+0
+#*FvwmPager: Geometry 100x100-0+0
+*FvwmPagerDeskTopScale  60
 
 # Your project may APPEND a button or two; this
 # may be commented/removed to exclude project changes
