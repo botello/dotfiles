@@ -5,24 +5,6 @@
 #
 ## See /usr/intel/common/pkgs/eclogin/1.0/ec/fvwm2rc-theme and fvwm(1)
 
-AddToFunc "Move-or-Raise" "M" Move
-+                         "M" Raise
-+                         "C" Raise
-+                         "D" Maximize 100 100
-
-AddToFunc "Move-or-Lower" "M" Move
-+                         "M" Lower
-+                         "C" Lower
-+                         "D" RaiseLower
-
-AddToFunc "Resize-or-Raise" "M" Resize
-+                         "M" Raise
-+                         "C" Raise
-+                         "D" RaiseLower
-
-AddToFunc "Move-or-Iconify" "M" Move
-+                         "C" Iconify
-
 #### Title Bar Buttons are numbered like so: 13579------------08642
 
 # Menu Button
@@ -65,7 +47,7 @@ Mouse 0 2   A   Close
 Mouse 1 R   A   PopUp "MainMenu"
 Mouse 3 TFS A   PopUp "Window_Ops"
 Mouse 3 R   A   WindowList
-Mouse 3 R   A   Module FvwmPager -transient
+Mouse 3 R   C   Module FvwmPager -transient
 Mouse 4 R   A   Scroll +0 -20
 Mouse 5 R   A   Scroll +0 +20
 Mouse 4 A   M   Scroll +0 -10
@@ -73,8 +55,8 @@ Mouse 5 A   M   Scroll +0 +10
 Mouse 4 A   MC  Scroll -10 +0
 Mouse 5 A   MC  Scroll +10 +0
 
-Mouse 1 FS  A   Function "Resize-or-Raise"
-Mouse 1 TI  A   Function "Move-or-Raise"
+#Mouse 1 FS  A   Function "Resize-or-Raise"
+#Mouse 1 TI  A   Function "Move-or-Raise"
 
 #Mouse 1 I   A   Function "Move-or-Iconify"
 #Mouse 3 I   A   PopUp "Window_Ops"
@@ -203,7 +185,7 @@ EdgeScroll	0 0
 
 
 # 'rubber-band' window-borders when moving and resizing windows.
-XORvalue 208
+XORvalue 55555
 
 # Make our windows snap-up against other windows and make icons snap
 # up against other icons
@@ -241,7 +223,7 @@ MenuStyle * popupoffset 0 100
 MenuStyle * MenuFace Animation
 
 # Set up some desktop options
-#DesktopSize     1x1
+DesktopSize     4x1
 
 # EdgeResistance scrolling moving
 #EdgeResistance  750 75
