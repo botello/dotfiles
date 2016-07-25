@@ -41,6 +41,7 @@ call vundle#begin('$HOME/.vim/bundle')
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'easymotion/vim-easymotion'
 
 Plugin 'chriskempson/base16-vim'
 Plugin 'craigemery/vim-autotag'
@@ -57,17 +58,28 @@ filetype plugin indent on
 "--------------------------------------------------------------------------
 " Settings
 "--------------------------------------------------------------------------
-set encoding=utf-8 fileformats=unix,dos,mac
-set laststatus=2 cmdheight=2
+set encoding=utf-8
+set fileformats=unix,dos,mac
+set laststatus=2
+set cmdheight=2
 set backspace=indent,eol,start  " same as 2
-set autochdir history=1000
-set shortmess=atI report=0 showcmd hidden
+set autochdir
+set history=1000
+set shortmess=atI
+set report=0
+set showcmd
+set hidden
 set completeopt=longest,menu " for omnipotent
 
-set number colorcolumn=80
+set number
+set colorcolumn=80
 "set textwidth=78  " auto break lines
-set nowrap linebreak
-set hlsearch incsearch ignorecase smartcase
+set nowrap
+set linebreak
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
 set nolazyredraw
 set scrolloff=5
 set wildignore=.svn,CVS,.git,.hg,*.o,*.so,*.obj,*.swp,*.jpg,*.png,*.gif
@@ -153,11 +165,15 @@ nnoremap <silent> <S-Tab> :bprev<cr>
 "nnoremap <silent> <A-l> :bnext<cr>
 
 " Disable backup file, enable read modified files
-set nobackup nowarn noswapfile
+set nobackup
+set nowarn
+set noswapfile
 set autoread
 
 " Disable all sounds and visual bells
-set noerrorbells visualbell t_vb=
+set noerrorbells
+set visualbell
+set t_vb=
 autocmd GUIEnter * set visualbell t_vb=
 
 " Reselect visual block after indent/outdent
@@ -167,9 +183,14 @@ vnoremap > >gv
 " Grepping
 nnoremap <F3> :execute "grep -srnwI --exclude-dir=.git --exclude=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
 
+" Tree style for Explore
+let g:netrw_liststyle = 3  " 3 for tree, 2 for horizontal list
+
 "--------------------------------------------------------------------------
 " Plugin configuration
 "--------------------------------------------------------------------------
+
+let g:load_doxygen_syntax = 1
 
 "function! AirlineInit()
     let g:airline_detect_spell = 0
@@ -202,6 +223,19 @@ nnoremap <F3> :execute "grep -srnwI --exclude-dir=.git --exclude=tags . -e " . e
 let g:syntastic_c_remove_include_errors = 1
 let g:syntastic_c_no_include_search = 1
 
+let g:gitgutter_max_signs = 2000
+
+"map <Leader> <Plug>(easymotion-prefix)
+"map  / <Plug>(easymotion-sn)
+"omap / <Plug>(easymotion-tn)
+""map  n <Plug>(easymotion-next)
+""map  N <Plug>(easymotion-prev)
+
+""nmap s <Plug>(easymotion-overwin-f2)
+"let g:EasyMotion_smartcase = 1
+""map <Leader>j <Plug>(easymotion-j)
+""map <Leader>k <Plug>(easymotion-k)
+
 syntax enable
 set background=dark
 colorscheme base16-monokai
@@ -210,8 +244,14 @@ colorscheme base16-monokai
 " Tools
 "--------------------------------------------------------------------------
 if has("autocmd")
-    autocmd BufNewFile,BufRead *.[ch] set formatprg=~/tools/astyle\ -A8s4pUHk3z2W3
+    autocmd BufNewFile,BufRead *.[ch] set formatprg=astyle\ -A8s4pUHk3z2W3j
 endif
+
+if &diff
+    syntax off
+    set nospell
+endif
+
 
 "#############################################################################
 " GUI settings (.gvimrc)
@@ -222,7 +262,8 @@ if has("gui_running")
         "set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline\ 12
         "set guifont=Bistream\ Vera\ Sans\ Mono\ 11
         "set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 11
-        set guifont=Monospace\ 11
+        set guifont=DejaVu\ Sans\ Mono\ 11
+        "set guifont=Monospace\ 11
         set printfont=Monospace\ 11
     elseif has("gui_win32")
         "set guifont=Fira_Mono_for_Powerline:h9:cANSI
@@ -236,7 +277,11 @@ if has("gui_running")
 
     let g:airline_powerline_fonts = 0
 
-    set lines=80 columns=100
+    if &diff
+        set lines=80 columns=200
+    else
+        set lines=80 columns=100
+    endif
 
     " vertical space between text lines.
     set linespace=0
