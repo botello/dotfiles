@@ -16,11 +16,13 @@ filetype off
 "--------------------------------------------------------------------------
 " Fixes for specific terminals
 "--------------------------------------------------------------------------
-"if $COLORTERM == 'gnome-terminal'
-if $COLORTERM == '1'
-    set t_Co=256
-    let base16colorspace=256
-endif
+"if
+"    \$COLORTERM == '1' ||
+"    \$COLORTERM == 'gnome-terminal' ||
+"    \$COLORTERM == 'xfce4-terminal'
+"    set t_Co=256
+"    let base16colorspace=256
+"endif
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
@@ -30,10 +32,10 @@ endif
 "--------------------------------------------------------------------------
 " Vundle
 "--------------------------------------------------------------------------
-set rtp+=$HOME/.vim/bundle/Vundle.vim/
+set rtp+=$HOME/dotfiles/vim/bundle/Vundle.vim/
 "set rtp+=$HOME/.vim/vimfiles/
 let $GIT_SSL_NO_VERIFY = 'true'
-call vundle#begin('$HOME/.vim/bundle')
+call vundle#begin('$HOME/dotfiles/vim/bundle')
 
 "--------------------------------------------------------------------------
 " Bundles
@@ -50,6 +52,8 @@ Plugin 'airblade/vim-gitgutter'
 
 Plugin 'vhda/verilog_systemverilog.vim'
 Plugin 'vim-scripts/verilog_emacsauto.vim'
+
+Plugin 'kergoth/vim-bitbake'
 
 call vundle#end()
 filetype plugin indent on
@@ -106,7 +110,7 @@ execute "set softtabstop=".tabsize
 set expandtab
 
 " Enable spelling
-set spell spelllang=en_us
+"set spell spelllang=en_us
 
 " Highlight trailing spaces
 match Visual "\s\+$"
@@ -125,6 +129,14 @@ vnoremap <silent> # :<C-U>
 
 " Tag file location
 set tags=tags;
+set tags+=.tags;
+set tags+=..\tags;
+set tags+=..\..\tags;
+set tags+=..\..\..\tags;
+set tags+=..\..\..\..\tags;
+set tags+=..\..\..\..\..\tags;
+set tags+=..\..\..\..\..\..\tags;
+let g:autoTagsFile=".tags"
 
 " Remember cursor position between vim sessions
 if has("autocmd")
@@ -192,18 +204,53 @@ let g:netrw_liststyle = 3  " 3 for tree, 2 for horizontal list
 
 let g:load_doxygen_syntax = 1
 
-"function! AirlineInit()
+function! AirlineInit()
     let g:airline_detect_spell = 0
-    let g:airline_powerline_fonts = 0
+    let g:airline_powerline_fonts = 1
+    let g:airline_skip_empty_sections = 1
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#show_tab_type = 0
     let g:airline#extensions#tabline#fnamemod = ':t'
     let g:airline#extensions#syntastic#enabled = 1
     let g:airline#extensions#whitespace#show_message = 1
+    if !exists('g:airline_symbols')
+      let g:airline_symbols = {}
+    endif
+
+    " unicode symbols
     let g:airline_left_sep = '»'
     let g:airline_left_sep = '▶'
     let g:airline_right_sep = '«'
     let g:airline_right_sep = '◀'
+    let g:airline_symbols.crypt = '🔒'
+    let g:airline_symbols.linenr = '☰'
+    let g:airline_symbols.linenr = '␊'
+    let g:airline_symbols.linenr = '␤'
+    let g:airline_symbols.linenr = '¶'
+    let g:airline_symbols.maxlinenr = ''
+    let g:airline_symbols.maxlinenr = '㏑'
+    let g:airline_symbols.branch = '⎇'
+    let g:airline_symbols.paste = 'ρ'
+    let g:airline_symbols.paste = 'Þ'
+    let g:airline_symbols.paste = '∥'
+    let g:airline_symbols.spell = 'Ꞩ'
+    let g:airline_symbols.notexists = '∄'
+    let g:airline_symbols.whitespace = 'Ξ'
+
+    " powerline symbols
+    let g:airline_left_sep = ''
+    let g:airline_left_alt_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_right_alt_sep = ''
+    let g:airline_symbols.branch = ''
+    let g:airline_symbols.readonly = ''
+    let g:airline_symbols.linenr = '☰'
+    let g:airline_symbols.maxlinenr = ''
+
+    if !exists('g:airline_mode_map')
+      let g:airline_mode_map = {}
+    endif
+
     let g:airline_mode_map = {
         \ '__' : '-',
         \ 'n'  : 'N',
@@ -217,8 +264,8 @@ let g:load_doxygen_syntax = 1
         \ 'S'  : 'S',
         \ '' : 'S',
         \ }
-"endfunction
-"autocmd VimEnter * call AirlineInit()
+endfunction
+autocmd VimEnter * call AirlineInit()
 
 let g:syntastic_c_remove_include_errors = 1
 let g:syntastic_c_no_include_search = 1
@@ -237,8 +284,13 @@ let g:gitgutter_max_signs = 2000
 ""map <Leader>k <Plug>(easymotion-k)
 
 syntax enable
-set background=dark
-colorscheme base16-monokai
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+else
+    set background=dark
+    colorscheme base16-material-darker
+endif
 
 "--------------------------------------------------------------------------
 " Tools
@@ -257,14 +309,14 @@ endif
 " GUI settings (.gvimrc)
 "#############################################################################
 if has("gui_running")
-    if has("gui_gtk2")
+    if has("gui_gtk2") || has("gui_gtk3")
         "set guifont=Meslo\ LG\ S\ DZ\ 13
         "set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline\ 12
         "set guifont=Bistream\ Vera\ Sans\ Mono\ 11
-        "set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 11
-        set guifont=DejaVu\ Sans\ Mono\ 11
-        "set guifont=Monospace\ 11
-        set printfont=Monospace\ 11
+        set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 9
+        "set guifont=DejaVu\ Sans\ Mono\ 8
+        "set guifont=Monospace\ 8
+        set printfont=Monospace\ 8
     elseif has("gui_win32")
         "set guifont=Fira_Mono_for_Powerline:h9:cANSI
         "set guifont=Sauce_Code_Powerline:h9:cANSI
@@ -275,7 +327,7 @@ if has("gui_running")
         set printfont=Consolas:h10:cANSI
     endif
 
-    let g:airline_powerline_fonts = 0
+    "let g:airline_powerline_fonts = 0
 
     if &diff
         set lines=80 columns=200
