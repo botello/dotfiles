@@ -12,6 +12,7 @@
 set nocompatible
 "behave mswin
 filetype off
+set t_BE=
 
 "--------------------------------------------------------------------------
 " Fixes for specific terminals
@@ -33,17 +34,14 @@ endif
 " Vundle
 "--------------------------------------------------------------------------
 set rtp+=$HOME/dotfiles/vim/bundle/Vundle.vim/
-"set rtp+=$HOME/.vim/vimfiles/
 let $GIT_SSL_NO_VERIFY = 'true'
+
 call vundle#begin('$HOME/dotfiles/vim/bundle')
 
-"--------------------------------------------------------------------------
-" Bundles
-"--------------------------------------------------------------------------
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-"Plugin 'easymotion/vim-easymotion'
+Plugin 'easymotion/vim-easymotion'
 
 Plugin 'chriskempson/base16-vim'
 Plugin 'craigemery/vim-autotag'
@@ -56,6 +54,7 @@ Plugin 'vim-scripts/verilog_emacsauto.vim'
 Plugin 'kergoth/vim-bitbake'
 
 call vundle#end()
+
 filetype plugin indent on
 "set autoindent  " always set autoindenting on
 
@@ -295,15 +294,35 @@ endif
 "--------------------------------------------------------------------------
 " Tools
 "--------------------------------------------------------------------------
-if has("autocmd")
-    autocmd BufNewFile,BufRead *.[ch] set formatprg=astyle\ -A8s4pUHk3z2W3j
-endif
-
 if &diff
     syntax off
     set nospell
 endif
 
+" <F7> formats current file
+map <F7> mzgg=G`z
+
+:autocmd FileType c set formatprg=astyle\ -A10s4pUHk3z2W3j
+:autocmd FileType cpp set formatprg=astyle\ -A10s4pUHk3z2W3j
+:autocmd FileType php set formatprg=astyle\ -A10s4pUHk3z2W3j
+:autocmd FileType java set formatprg=astyle\ --mode=java
+:autocmd FileType cs set formatprg=astyle\ --mode=cs
+
+function! Format()
+    silent! execute 'norm! mz'
+    " Formatting depends on `formatprg' vaiable set when setting 'FileType'
+    silent! execute 'norm! gggqG'
+    silent! call RemoveTrailingSpaces()
+    silent! execute 'retab'
+    silent! execute 'gg=G'
+    silent! execute 'norm! `z'
+    set formatprg=
+endfunction
+
+function! RemoveTrailingSpaces()
+    silent! execute '%s/\s\+$//ge'
+    silent! execute 'g/\v^$\n*%$/norm! dd'
+endfunction
 
 "#############################################################################
 " GUI settings (.gvimrc)
@@ -332,7 +351,7 @@ if has("gui_running")
     if &diff
         set lines=80 columns=200
     else
-        set lines=80 columns=100
+        set lines=50 columns=100
     endif
 
     " vertical space between text lines.
