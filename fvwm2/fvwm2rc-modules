@@ -8,6 +8,10 @@
 
 ## You can override anything in the above file in this file.
 
+###----->Virtual Desktops<-----
+DesktopSize 1x1
+DesktopName 0 Main
+
 ###----->Buttons<-----
 
 # You can PREPEND buttons to the buttonbar, e.g.:
@@ -52,12 +56,30 @@
 
 
 ###----->TaskBar<-----
-#*FvwmTaskBar: Geometry +1-0
+*FvwmTaskBarAction Click1 Iconify -1, Raise, Focus
+*FvwmTaskBarAction Click2 Iconify +1, Lower
+*FvwmTaskBarAction Click3 Iconify -1, Raise, Focus
+
+*FvwmTaskBarUseSkipList
+*FvwmTaskBarUseIconNames
+*FvwmTaskBarAutoStick
+*FvwmTaskBarShowTips
+
+*FvwmTaskBarButtonWidth 180
+#*FvwmTaskBarBellVolume 20
+#*FvwmTaskBarMailBox /var/spool/mail/
+#*FvwmTaskBarMailCommand Exec xterm -e elm
+#*FvwmTaskBarClockFormat %I:%M %p
+
+*FvwmTaskBarStartName
+#*FvwmTaskBarStartMenu StartMenu
+*FvwmTaskBarStartMenu MainMenu
+*FvwmTaskBarStartIcon mini-exp.xpm
 
 
 ###----->Pager<-----
 #*FvwmPager: Geometry 100x100-0+0
-*FvwmPagerDeskTopScale  60
+#*FvwmPagerDeskTopScale  60
 
 # Your project may APPEND a button or two; this
 # may be commented/removed to exclude project changes
