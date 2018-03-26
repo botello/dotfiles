@@ -12,7 +12,7 @@
 ## You can completely replace a menu with DestroyMenu followed by
 ## AddToMenu, as in the above default file.
 
-AddToMenu Applications
+#AddToMenu Applications
 ##
 ## (xterm, mozilla, others included by system)
 ##
@@ -22,10 +22,10 @@ AddToMenu Applications
 ## Star Office may not exist except on modern Linux
 #+	"StarOffice"	exec	soffice &
 
-AddToMenu ModulesPopup
+#AddToMenu ModulesPopup
 #
 # uncomment if you want WinList available
-+	"FvwmWinList"		Module FvwmWinList
+#+	"FvwmWinList"		Module FvwmWinList
 
 #Uncomment if you want to enable access
 #to alternate window managers

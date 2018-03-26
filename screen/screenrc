@@ -1,8 +1,11 @@
 defutf8 on
 utf8 on on
 
-vbell off
+vbell on
 startup_message off
+autodetach on
+
+shell "/usr/intel/bin/bash"
 
 #term "screen-256color"
 #term "putty-256color"
@@ -15,18 +18,11 @@ startup_message off
 #
 # Improved format
 #
-hardstatus off
 hardstatus ignore
-caption on
-caption always "%?%F%{= mw}%:%{= Kk}%?   %-w%?%F%{ck}%:%{wK}%? %n*%f %t %{-}%+w"
+#hardstatus alwayslastline '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d/%m %{W}%c %{g}]'
+caption always "%?%F%{= Kk}%:%{= kw}%?  %-w%?%F%{gk}%:%{wK}%? %n*%f %t %{-}%+w"
 sorendition "= rw"
 
-#
-# Simple format
-#
-#caption splitonly "%?%F%{= Kw}%:%{= kK}%?[%n %t]"
-#hardstatus alwayslastline '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d/%m %{W}%c %{g}]'
-#sorendition "= Kk"
 
 # Huge scrollback buffer
 defscrollback 10000
@@ -41,17 +37,22 @@ defscrollback 10000
 bind x   # Disable screen locking
 bind ^X  # Disable Xon/Xoff shit
 # Reload .screenrc
-bind R eval "source $HOME/.screenrc" "echo '.screenrc reloaded'"
+bind R eval "source $HOME/.screenrc" "echo '~/.screenrc reloaded'"
 
 #
 # Create default windows
 #
-screen -t sh   1 /usr/bin/env tcsh
-screen -t sh   2 /usr/bin/env tcsh
-screen -t sh   3 /usr/bin/env tcsh
-screen -t sh   4 /usr/bin/env tcsh
-screen -t sh   0 /usr/bin/env tcsh
-select 0
+#screen -t home  0 /usr/bin/env bash
+#screen -t sh    1 /usr/bin/env bash
+#screen -t sh    2 /usr/bin/env bash
+#screen -t sh    3 /usr/bin/env bash
+#screen -t sh    4 /usr/bin/env bash
+#screen -t sh    5 /usr/bin/env bash
+#screen -t sh    6 /usr/bin/env bash
+#screen -t sh    7 /usr/bin/env bash
+#screen -t sh    8 /usr/bin/env bash
+#screen -t sh    9 /usr/bin/env bash
+#select 0
 
 #
 # ^J puts Screen into resize mode.  Resize regions using hjkl keys.
@@ -65,31 +66,31 @@ bind -c rsz l eval "resize -h +5" "command -c rsz"
 #
 # Layouts
 #
-layout autosave on
-layout new default
-select 0
-layout new one
-select 1
-split
-resize -v +8
-focus down
-select 2
-focus up
-layout new two
-select 3
-split
-resize -v -8
-focus down
-select 4
-focus up
-
-layout attach default
-layout select default
-
-bind "^L" eval "command -c lyt"  # enter switch layout mode
-bind -c lyt h eval "layout prev" "command -c lyt"
-bind -c lyt j eval "layout next" "command -c lyt"
-bind -c lyt k eval "layout prev" "command -c lyt"
-bind -c lyt l eval "layout next" "command -c lyt"
+#layout autosave on
+#layout new default
+#select 0
+#layout new one
+#select 1
+#split
+#resize -v +8
+#focus down
+#select 2
+#focus up
+#layout new two
+#select 3
+#split
+#resize -v -8
+#focus down
+#select 4
+#focus up
+#
+#layout attach default
+#layout select default
+#
+#bind "^L" eval "command -c lyt"  # enter switch layout mode
+#bind -c lyt h eval "layout prev" "command -c lyt"
+#bind -c lyt j eval "layout next" "command -c lyt"
+#bind -c lyt k eval "layout prev" "command -c lyt"
+#bind -c lyt l eval "layout next" "command -c lyt"
 #bind -c lyt n eval "layout new" "command -c lyt"
 #bind -c lyt x eval "layout remove" "command -c lyt"

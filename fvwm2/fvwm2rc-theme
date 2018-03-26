@@ -8,24 +8,44 @@
 #### Title Bar Buttons are numbered like so: 13579------------08642
 
 # Menu Button
-ButtonStyle 1 Vector 5 20x40@1 20x60@1 80x60@0 80x40@0 20x40@1
+ButtonStyle 1 Vector 5 20x40@3 20x60@3 80x60@3 80x40@3 20x40@3
 # Stick Button (Pushpin)
-ButtonStyle 3 10 25x20@1 30x25@1 30x55@1 43x55@0 50x85@1 57x55@0 70x55@0 70x25@0 75x20@0 25x20@1
+ButtonStyle 3 10 25x20@3 30x25@3 30x55@3 43x55@3 50x85@3 57x55@3 70x55@3 70x25@3 75x20@3 25x20@3
 # Shade Button
-ButtonStyle 5 Vector 5 20x40@0 20x60@0 80x60@1 80x40@1 20x40@0
+ButtonStyle 5 Vector 5 20x40@3 20x60@3 80x60@3 80x40@3 20x40@3
 # Lightning Bolt Button
-#ButtonStyle 7 Vector 7 70x15@0 30x55@1 50x55@0 40x85@1 80x45@0 60x45@1 70x15@0
+#ButtonStyle 7 Vector 7 70x15@3 30x55@3 50x55@3 40x85@3 80x45@3 60x45@3 70x15@3
 
 # Maximize Horizontally Button
-ButtonStyle 0 13 10x50@1 30x25@1 30x40@1 30x40@1 60x40@1 60x25@1 85x50@1 60x75@0 60x60@0 30x60@0 30x75@0 10x50@0 10x50@1
+ButtonStyle 0 13 10x50@3 30x25@3 30x40@3 30x40@3 60x40@3 60x25@3 85x50@3 60x75@3 60x60@3 30x60@3 30x75@3 10x50@3 10x50@3
 # Maximize Vertically Button
-ButtonStyle 8 12 50x10@1 25x30@1 40x30@1 40x60@1 25x60@1 50x85@1 75x60@0 60x60@0 60x30@0 75x30@0 50x10@0 50x10@1
+ButtonStyle 8 12 50x10@3 25x30@3 40x30@3 40x60@3 25x60@3 50x85@3 75x60@3 60x60@3 60x30@3 75x30@3 50x10@3 50x10@3
 # Iconify Button
-ButtonStyle 6 Vector 4 50x65@1 35x35@1 65x35@1 50x65@0
+ButtonStyle 6 Vector 4 50x65@3 35x35@3 65x35@3 50x65@3
 # Maximize Button
-ButtonStyle 4 Vector 4 50x35@1 65x65@0 35x65@0 50x35@1
+ButtonStyle 4 Vector 4 50x35@3 65x65@3 35x65@3 50x35@3
 # Delete/Kill Button (X shaped)
-ButtonStyle 2 Vector 17 20x20@1 30x20@1 50x40@1 70x20@1 80x20@1 80x30@0 60x50@0 80x70@1 80x80@0 70x80@0 50x60@0 30x80@0 20x80@0 20x70@0 40x50@1 20x30@0 20x20@1
+ButtonStyle 2 Vector 17 20x20@3 30x20@3 50x40@3 70x20@3 80x20@3 80x30@3 60x50@3 80x70@3 80x80@3 70x80@3 50x60@3 30x80@3 20x80@3 20x70@3 40x50@3 20x30@3 20x20@3
+
+# Menu Button
+#ButtonStyle 1 Vector 5 20x40@1 20x60@1 80x60@3 80x40@3 20x40@1
+# Stick Button (Pushpin)
+#ButtonStyle 3 10 25x20@1 30x25@1 30x55@1 43x55@3 50x85@1 57x55@3 70x55@3 70x25@3 75x20@3 25x20@1
+# Shade Button
+#ButtonStyle 5 Vector 5 20x40@3 20x60@3 80x60@1 80x40@1 20x40@3
+# Lightning Bolt Button
+#ButtonStyle 7 Vector 7 70x15@3 30x55@1 50x55@3 40x85@1 80x45@3 60x45@1 70x15@3
+
+# Maximize Horizontally Button
+#ButtonStyle 0 13 10x50@1 30x25@1 30x40@1 30x40@1 60x40@1 60x25@1 85x50@1 60x75@3 60x60@3 30x60@3 30x75@3 10x50@3 10x50@1
+# Maximize Vertically Button
+#ButtonStyle 8 12 50x10@1 25x30@1 40x30@1 40x60@1 25x60@1 50x85@1 75x60@3 60x60@3 60x30@3 75x30@3 50x10@3 50x10@1
+# Iconify Button
+#ButtonStyle 6 Vector 4 50x65@1 35x35@1 65x35@1 50x65@3
+# Maximize Button
+#ButtonStyle 4 Vector 4 50x35@1 65x65@3 35x65@3 50x35@1
+# Delete/Kill Button (X shaped)
+#ButtonStyle 2 Vector 17 20x20@1 30x20@1 50x40@1 70x20@1 80x20@1 80x30@3 60x50@3 80x70@1 80x80@3 70x80@3 50x60@3 30x80@3 20x80@3 20x70@3 40x50@1 20x30@3 20x20@1
 
 ############################################################################
 # Mouse Bindings
@@ -34,14 +54,16 @@ ButtonStyle 2 Vector 17 20x20@1 30x20@1 50x40@1 70x20@1 80x20@1 80x30@0 60x50@0 
 #### Mouse Bindings for the Title Bar Buttons above
 # Button|Context|Modifi|Function
 
+#### Title Bar Buttons are numbered like so: 13579------------08642
+#
 Mouse 0 1   A   PopUp "Window_Ops"
 Mouse 0 3   A   Stick
 Mouse 0 5   A   WindowShade
 
 Mouse 0 0   A   Maximize 100 0
-Mouse 0 8   A   Maximize 0 100
+Mouse 0 8   A   Maximize 0 -20p
 Mouse 0 6   A   Iconify
-Mouse 0 4   A   Maximize 100 100
+Mouse 0 4   A   Maximize 100 -20p
 Mouse 0 2   A   Close
 
 Mouse 1 R   A   PopUp "MainMenu"
@@ -184,6 +206,16 @@ EdgeScroll	0 0
 # adelrior theme
 
 
+# Program Launching Functions
+DestroyFunc FvwmXTerm
+AddToFunc   FvwmXTerm
++ I Exec exec xterm
+
+DestroyFunc FvwmFirefox
+AddToFunc   FvwmFirefox
++ I Exec exec firefox
+
+
 # 'rubber-band' window-borders when moving and resizing windows.
 XORvalue 55555
 
@@ -194,61 +226,87 @@ SnapAttraction 20 SameType
 # Font configuration
 #WindowFont      -adobe-helvetica-bold-r-*-*-12-*-*-*-*-*-*-*
 #IconFont        -adobe-helvetica-bold-r-*-*-10-*-*-*-*-*-*-*
-WindowFont      -adobe-helvetica-bold-r-*-*-12-*-*-*-*-*-*-*
-IconFont        -adobe-helvetica-bold-r-*-*-10-*-*-*-*-*-*-*
+WindowFont      -*-fixed-medium-r-*-*-14-*-*-*-*-*-*-*
+IconFont        -*-fixed-medium-r-*-*-12-*-*-*-*-*-*-*
+
+# Style related options
+Style "*" ForeColor #627e99
+Style "*" BackColor #0b1c2c
+Style "*" SmartPlacement, CleverPlacement
+Style "*" StickyIcon
+
+Style "*" NoIcon
+#Style "*" IconBox 1 1 600 400
+#Style "*" IconFill top left
+
+Style "*" BorderWidth 5, HandleWidth 5
+Style "*" NoPPosition
+Style "*" NakedTransient
+#Style "*" SloppyFocus, MouseFocusClickRaises
+Style "*" MouseFocusClickRaises
+Style "*" ResizeOutline
 
 
 # HighlightColor
-#HilightColor  linen SteelBlue4
-HilightColor  Snow4 SteelBlue4
-
-# BorderStyle
-BorderStyle Active Solid SteelBlue4 -- NoInset HiddenHandles
-BorderStyle Inactive Solid Snow4 -- NoInset HiddenHandles
+HilightColor  #aabcce #223b54
 
 # TitleStyle
-TitleStyle ActiveUp Solid SteelBlue4 -- flat
-TitleStyle ActiveDown Solid SteelBlue4 -- flat
-TitleStyle Inactive Solid Snow4 -- flat
+TitleStyle ActiveUp Solid #223b54 -- flat
+TitleStyle ActiveDown Solid #223b54 -- flat
+TitleStyle Inactive Solid #0b1c2c -- flat
 
 # The Second Variation of TitleStyle:
 TitleStyle LeftJustified
 
 # Button Styles
-ButtonStyle All -- UseTitleStyle flat
+ButtonStyle All -- UseTitleStyle Flat
 
-# MenuStyle 
-MenuStyle * background SteelBlue4, ActiveFore LightSteelBlue, ForeGround linen
-MenuStyle * popupoffset 0 100
+# BorderStyle
+BorderStyle Active Solid #223b54 -- NoInset HiddenHandles
+BorderStyle Inactive Solid #0b1c2c -- NoInset HiddenHandles
+
+
+*FvwmTaskBarBack #223b54
+*FvwmTaskBarFore #aabcce
+*FvwmTaskBarTipsBack #223b54
+*FvwmTaskBarTipsFore #aabcce
+*FvwmTaskBarIconBack #223b54
+*FvwmTaskBarIconFore #627e99
+*FvwmTaskBarGeometry +0-1
+*FvwmTaskBarFont       -*-fixed-medium-r-*-*-14-*-*-*-*-*-*-*
+*FvwmTaskBarSelFont    -*-fixed-medium-r-*-*-14-*-*-*-*-*-*-*
+*FvwmTaskBarStatusFont -*-fixed-medium-r-*-*-14-*-*-*-*-*-*-*
+*FvwmTaskBar: Button Icon icons/mini.xterm.xpm, Action (Mouse 1) "FvwmXTerm"
+*FvwmTaskBar: Button Icon icons/mini.netscape.xpm , Action (Mouse 1) "FvwmFirefox"
+
+
+# MenuStyle
+MenuStyle * Background #223b54
+MenuStyle * ActiveFore #f7f9fb
+MenuStyle * ForeGround #aabcce
+MenuStyle * Hilight3DOff, BorderWidth 1 
+MenuStyle * PopupOffset 0 100
+MenuStyle * VerticalItemSpacing 2 4, VerticalTitleSpacing 2 4
 MenuStyle * MenuFace Animation
 
 # Set up some desktop options
-DesktopSize     4x1
+#DesktopSize     4x1
 
 # EdgeResistance scrolling moving
-#EdgeResistance  750 75
+EdgeResistance  1000 1000
 
 # EdgeScroll horizontal vertical
-#EdgeScroll      100 100
+EdgeScroll      100 100
+EdgeThickness   1
 
 # OpaqueMoveSize percentage
 OpaqueMoveSize 100
 
-# Style related options
-Style "*" ForeColor grey40
-Style "*" BackColor Snow4
-Style "*" SmartPlacement, CleverPlacement
-Style "*" StickyIcon
-#Style "*" IconBox       5 -50 -134 -5
-Style "*" IconBox       -5 -290 -134 -5
-Style "*" BorderWidth 5, HandleWidth 5
-Style "*" NoPPosition
-Style "*" NakedTransient
-#Style "*" SloppyFocus, MouseFocusClickRaises
-Style "*" ResizeOutline
-
 # Some Fvwm-Related Styles
-Style "Fvwm*"   NoTitle, NoHandles, Sticky, WindowListSkip
+Style "Fvwm*"           NoTitle, NoHandles, Sticky, WindowListSkip
 Style "FvwmWinList"     NoTitle
 Style "FvwmPager"       StaysOnTop, BorderWidth 0
+Style "FvwmTaskBar"     !Borders, CirculateSkip, StaysOnTop, FixedPosition, FixedSize, !Iconifiable
+
+#SetAnimation  10  -.01 0 .01 .03 .08 .18 .3 .45 .6 .75 .85 .90 .94 .97 .99 1.0
 

@@ -18,24 +18,24 @@ AddToFunc "InitFunction"
 
 #a pager is normally started by FvwmButtons; use this only after
 #changing FvwmButtons module or you will have multiple pagers.
-+	"I" Module FvwmPager 0 0
+#+	"I" Module FvwmPager 0 0
 #
 #this module can automatically raise windows on focus
-#+	"I" Module FvwmAuto 100 raise lower
++	"I" Module FvwmAuto 100 raise lower
 #
 # send to other desktops
-#+	"I" Module FvwmIdent
++	"I" Module FvwmIdent
 
 #brings up a list of managed windows
 #(similar funtion is normally configured on button2)
-#+	"I" Module FvwmTaskBar
++	"I" Module FvwmTaskBar
 
 
 # Run these on restart, should be same list as above...
 
 AddToFunc "RestartFunction"
 #+	"I" Module FvwmButtons
-+	"I" Module FvwmPager 0 0
-#+	"I" Module FvwmAuto 100 raise lower
+#+	"I" Module FvwmPager 0 0
++	"I" Module FvwmAuto 100 raise lower
 +	"I" Module FvwmIdent
-#+	"I" Module FvwmTaskBar
++	"I" Module FvwmTaskBar
