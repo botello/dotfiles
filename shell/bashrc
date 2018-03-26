@@ -51,9 +51,11 @@ function __prompt_command() {
     local Whi='\e[0;37m'; local BWhi='\e[1;37m';  local UWhi='\e[4;37m';  local IWhi='\e[0;97m';  local BIWhi='\e[1;97m'; local On_Whi='\e[47m';  local On_IWhi='\e[0;107m';
 
     if [[ $EXIT == 0 ]]; then
-    PS1="\[${Bla}\]\[${On_Blu}\]$\[${Blu}\]\[${On_Bla}\]\[${RCol}\] "
+        PS1="\[${Gre}\]\[${On_Bla}\]>\[${RCol}\] "
+        #PS1="\[${Bla}\]\[${On_Blu}\]$\[${Blu}\]\[${On_Bla}\]\[${RCol}\] "
     else
-    PS1="\[${Whi}\]\[${On_Red}\]${EXIT} $\[${Red}\]\[${On_Bla}\]\[${RCol}\] "
+        PS1="\[${Whi}\]\[${On_Red}\]${EXIT}\[${Red}\]\[${On_Bla}\]>\[${RCol}\] "
+        #PS1="\[${Whi}\]\[${On_Red}\]${EXIT} $\[${Red}\]\[${On_Bla}\]\[${RCol}\] "
     fi
 
     # If this is an xterm set the title to user@host:dir
