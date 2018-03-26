@@ -13,3 +13,6 @@
 [submodule "tools/the_silver_searcher"]
 	path = tools/the_silver_searcher
 	url = https://github.com/ggreer/the_silver_searcher
+[submodule "shell/base16-xfce4-terminal"]
+	path = shell/base16-xfce4-terminal
+	url = https://github.com/afg984/base16-xfce4-terminal

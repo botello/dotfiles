@@ -12,12 +12,15 @@
 set nocompatible
 "behave mswin
 filetype off
+set t_BE=
 
 "--------------------------------------------------------------------------
 " Fixes for specific terminals
 "--------------------------------------------------------------------------
-"if $COLORTERM == 'gnome-terminal'
-if $COLORTERM == '1'
+if
+    \$COLORTERM == '1' ||
+    \$COLORTERM == 'gnome-terminal' ||
+    \$COLORTERM == 'xfce4-terminal'
     set t_Co=256
     let base16colorspace=256
 endif
@@ -30,18 +33,15 @@ endif
 "--------------------------------------------------------------------------
 " Vundle
 "--------------------------------------------------------------------------
-set rtp+=$HOME/.vim/bundle/Vundle.vim/
-"set rtp+=$HOME/.vim/vimfiles/
+set rtp+=$HOME/dotfiles/vim/bundle/Vundle.vim/
 let $GIT_SSL_NO_VERIFY = 'true'
-call vundle#begin('$HOME/.vim/bundle')
 
-"--------------------------------------------------------------------------
-" Bundles
-"--------------------------------------------------------------------------
+call vundle#begin('$HOME/dotfiles/vim/bundle')
+
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-"Plugin 'easymotion/vim-easymotion'
+Plugin 'easymotion/vim-easymotion'
 
 Plugin 'chriskempson/base16-vim'
 Plugin 'craigemery/vim-autotag'
@@ -55,7 +55,10 @@ Plugin 'vim-scripts/verilog_emacsauto.vim'
 Plugin 'bjoernd/vim-syntax-simics'
 Plugin 'tpope/vim-markdown'
 
+Plugin 'kergoth/vim-bitbake'
+
 call vundle#end()
+
 filetype plugin indent on
 "set autoindent  " always set autoindenting on
 
@@ -134,6 +137,14 @@ vnoremap <silent> # :<C-U>
 
 " Tag file location
 set tags=tags;
+set tags+=.tags;
+set tags+=..\tags;
+set tags+=..\..\tags;
+set tags+=..\..\..\tags;
+set tags+=..\..\..\..\tags;
+set tags+=..\..\..\..\..\tags;
+set tags+=..\..\..\..\..\..\tags;
+let g:autoTagsFile=".tags"
 
 " Remember cursor position between vim sessions
 if has("autocmd")
@@ -208,8 +219,10 @@ nnoremap <F3> :execute "grep -srnwI --exclude-dir=.git --exclude=tags . -e " . e
 
 let g:load_doxygen_syntax = 1
 
-"function! AirlineInit()
+function! AirlineInit()
     let g:airline_detect_spell = 0
+    let g:airline_powerline_fonts = 1
+    let g:airline_skip_empty_sections = 1
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#show_tab_type = 0
     let g:airline#extensions#tabline#fnamemod = ':t'
@@ -218,10 +231,44 @@ let g:load_doxygen_syntax = 1
 
     " For regular fonts only
     "let g:airline_powerline_fonts = 0
+    if !exists('g:airline_symbols')
+      let g:airline_symbols = {}
+    endif
+
+    " unicode symbols
     let g:airline_left_sep = '»'
     let g:airline_left_sep = '▶'
     let g:airline_right_sep = '«'
     let g:airline_right_sep = '◀'
+
+    let g:airline_symbols.crypt = '🔒'
+    let g:airline_symbols.linenr = '☰'
+    let g:airline_symbols.linenr = '␊'
+    let g:airline_symbols.linenr = '␤'
+    let g:airline_symbols.linenr = '¶'
+    let g:airline_symbols.maxlinenr = ''
+    let g:airline_symbols.maxlinenr = '㏑'
+    let g:airline_symbols.branch = '⎇'
+    let g:airline_symbols.paste = 'ρ'
+    let g:airline_symbols.paste = 'Þ'
+    let g:airline_symbols.paste = '∥'
+    let g:airline_symbols.spell = 'Ꞩ'
+    let g:airline_symbols.notexists = '∄'
+    let g:airline_symbols.whitespace = 'Ξ'
+
+    " powerline symbols
+    let g:airline_left_sep = ''
+    let g:airline_left_alt_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_right_alt_sep = ''
+    let g:airline_symbols.branch = ''
+    let g:airline_symbols.readonly = ''
+    let g:airline_symbols.linenr = '☰'
+    let g:airline_symbols.maxlinenr = ''
+
+    if !exists('g:airline_mode_map')
+      let g:airline_mode_map = {}
+    endif
 
     let g:airline_mode_map = {
         \ '__' : '-',
@@ -236,8 +283,8 @@ let g:load_doxygen_syntax = 1
         \ 'S'  : 'S',
         \ '' : 'S',
         \ }
-"endfunction
-"autocmd VimEnter * call AirlineInit()
+endfunction
+autocmd VimEnter * call AirlineInit()
 
 let g:syntastic_c_remove_include_errors = 1
 let g:syntastic_c_no_include_search = 1
@@ -258,29 +305,52 @@ let g:gitgutter_max_signs = 2000
 let Tlist_Use_Right_Window = 1
 
 syntax enable
-set background=dark
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+else
+    set background=dark
+    colorscheme base16-material-darker
+endif
 
 "--------------------------------------------------------------------------
 " Tools
 "--------------------------------------------------------------------------
-if has("autocmd")
-    autocmd BufNewFile,BufRead *.[ch] set formatprg=astyle\ -A8s4pUHk3z2W3j
-endif
-
 if &diff
     syntax off
     set nospell
 endif
 
+" <F7> formats current file
+map <F7> mzgg=G`z
+
+:autocmd FileType c set formatprg=astyle\ -A10s4pUHk3z2W3j
+:autocmd FileType cpp set formatprg=astyle\ -A10s4pUHk3z2W3j
+:autocmd FileType php set formatprg=astyle\ -A10s4pUHk3z2W3j
+:autocmd FileType java set formatprg=astyle\ --mode=java
+:autocmd FileType cs set formatprg=astyle\ --mode=cs
+
+function! Format()
+    silent! execute 'norm! mz'
+    " Formatting depends on `formatprg' vaiable set when setting 'FileType'
+    silent! execute 'norm! gggqG'
+    silent! call RemoveTrailingSpaces()
+    silent! execute 'retab'
+    silent! execute 'gg=G'
+    silent! execute 'norm! `z'
+    set formatprg=
+endfunction
+
+function! RemoveTrailingSpaces()
+    silent! execute '%s/\s\+$//ge'
+    silent! execute 'g/\v^$\n*%$/norm! dd'
+endfunction
 
 "#############################################################################
 " GUI settings (.gvimrc)
 "#############################################################################
 if has("gui_running")
-
-    colorscheme base16-material-darker
-
-    if has("gui_gtk2")
+    if has("gui_gtk2") || has("gui_gtk3")
         "set guifont=Meslo\ LG\ S\ DZ\ 13
         "set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline\ 11
         "set guifont=Bistream\ Vera\ Sans\ Mono\ 11
@@ -288,6 +358,9 @@ if has("gui_running")
         "set guifont=DejaVu\ Sans\ Mono\ 11
         set guifont=Monospace\ 11
         set printfont=Monospace\ 11
+        "set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 11
+        "set guifont=DejaVu\ Sans\ Mono\ 8
+        "set guifont=Monospace\ 8
     elseif has("gui_win32")
         "set guifont=Fira_Mono_for_Powerline:h9:cANSI
         "set guifont=Sauce_Code_Powerline:h9:cANSI
@@ -300,12 +373,10 @@ if has("gui_running")
 
     set colorcolumn=80
 
-    let g:airline_powerline_fonts = 0
-
     if &diff
-        set lines=40 columns=200
+        set lines=50 columns=200
     else
-        set lines=40 columns=100
+        set lines=50 columns=100
     endif
 
     " vertical space between text lines.
