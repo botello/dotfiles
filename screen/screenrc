@@ -5,7 +5,7 @@ vbell on
 startup_message off
 autodetach on
 
-shell "/usr/intel/bin/bash"
+shell "/usr/intel/bin/tcsh"
 
 #term "screen-256color"
 #term "putty-256color"
@@ -42,17 +42,17 @@ bind R eval "source $HOME/.screenrc" "echo '~/.screenrc reloaded'"
 #
 # Create default windows
 #
-#screen -t home  0 /usr/bin/env bash
-#screen -t sh    1 /usr/bin/env bash
-#screen -t sh    2 /usr/bin/env bash
-#screen -t sh    3 /usr/bin/env bash
-#screen -t sh    4 /usr/bin/env bash
-#screen -t sh    5 /usr/bin/env bash
-#screen -t sh    6 /usr/bin/env bash
-#screen -t sh    7 /usr/bin/env bash
-#screen -t sh    8 /usr/bin/env bash
-#screen -t sh    9 /usr/bin/env bash
-#select 0
+screen -t home  0 /usr/intel/bin/tcsh
+screen -t sh1   1 /usr/intel/bin/tcsh
+screen -t sh2   2 /usr/intel/bin/tcsh
+screen -t sh3   3 /usr/intel/bin/tcsh
+screen -t sh4   4 /usr/intel/bin/tcsh
+screen -t sh5   5 /usr/intel/bin/tcsh
+screen -t sh6   6 /usr/intel/bin/tcsh
+screen -t sh7   7 /usr/intel/bin/tcsh
+screen -t sh8   8 /usr/intel/bin/tcsh
+screen -t sh9   9 /usr/intel/bin/tcsh
+select 0
 
 #
 # ^J puts Screen into resize mode.  Resize regions using hjkl keys.

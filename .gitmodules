@@ -16,3 +16,6 @@
 [submodule "shell/base16-xfce4-terminal"]
 	path = shell/base16-xfce4-terminal
 	url = https://github.com/afg984/base16-xfce4-terminal
+[submodule "shell/base16-gnome-terminal"]
+	path = shell/base16-gnome-terminal
+	url = http://github.com/aaron-williamson/base16-gnome-terminal.git
