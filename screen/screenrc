@@ -1,13 +1,13 @@
 defutf8 on
 utf8 on on
 
-vbell on
+vbell off
 startup_message off
 autodetach on
 
 shell "/usr/intel/bin/tcsh"
 
-#term "screen-256color"
+term "screen-256color"
 #term "putty-256color"
 #terminfo xterm-color hs@:cs=\E[%i%p1%d;%p2%dr:im=\E[4h:ei=\E[4l
 #term xterm-color
@@ -42,16 +42,16 @@ bind R eval "source $HOME/.screenrc" "echo '~/.screenrc reloaded'"
 #
 # Create default windows
 #
-screen -t home  0 /usr/intel/bin/tcsh
-screen -t sh1   1 /usr/intel/bin/tcsh
-screen -t sh2   2 /usr/intel/bin/tcsh
-screen -t sh3   3 /usr/intel/bin/tcsh
-screen -t sh4   4 /usr/intel/bin/tcsh
-screen -t sh5   5 /usr/intel/bin/tcsh
-screen -t sh6   6 /usr/intel/bin/tcsh
-screen -t sh7   7 /usr/intel/bin/tcsh
-screen -t sh8   8 /usr/intel/bin/tcsh
-screen -t sh9   9 /usr/intel/bin/tcsh
+screen -t home    0 /usr/intel/bin/tcsh
+screen -t src     1 /usr/intel/bin/tcsh
+screen -t src     2 /usr/intel/bin/tcsh
+screen -t src     3 /usr/intel/bin/tcsh
+screen -t src     4 /usr/intel/bin/tcsh
+screen -t test    5 /usr/intel/bin/tcsh
+screen -t test    6 /usr/intel/bin/tcsh
+screen -t etc     7 /usr/intel/bin/tcsh
+screen -t etc     8 /usr/intel/bin/tcsh
+screen -t etc     9 /usr/intel/bin/tcsh
 select 0
 
 #
