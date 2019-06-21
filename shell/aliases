@@ -1,0 +1,59 @@
+# EC Standard Login Environment -*- sh -*-
+# user .aliases file
+# $Source: /usr/cvs/cvsrep/ec_environ-1.0/release/user/aliases,v $
+# $Revision: 1.1 $
+
+# You may place your personal aliases here or in .cshrc.$USER
+#
+# examples:
+# alias . exit
+# alias e emacs
+# alias telnet ssh2
+
+alias vi        "vim"
+
+alias grep      "grep --color=auto"
+alias egrep     "egrep --color=auto"
+alias ls        "ls --color=auto --group-directories-first -F"
+alias l         "ls --color=auto --group-directories-first -Flh"
+alias la        "ls --color=auto --group-directories-first -Fa"
+alias ll        "ls --color=auto --group-directories-first -Fla"
+
+alias gvimr     "gvim --remote"
+
+alias base16-shell  "bash $HOME/dotfiles/shell/base16-shell/scripts/base16-monokai.sh"
+
+alias gitlog    "git log --oneline --decorate --all --graph"
+#alias gitlog    "git log --graph \
+#                 --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
+#                 --abbrev-commit"
+
+alias wash-mby-min  "wash -n user soc npg_rtl mby"
+alias wash-mby      "wash -n user soc npg_rtl mby \
+                     ef1_x hdk10nm rvc shdk73 slx_16 slx_ip16 \
+                     soc73 soc73proc srvr10nm stl_nx stl_x switchall"
+
+alias wash-mev-min  "wash -n users mev npg_rtl cip acdc"
+alias wash-mev      "wash -n users mev npg_rtl soc soc73 soc73proc cip acdc n7 n7fe n7na mp_tech_n7"
+
+alias setnhdk       "source /p/hdk/rtl/proj_tools/proj_binx/nhdk/latest/setnhdk.csh \!:*"
+
+
+alias wash-npc     "wash -n users mev srvr10nm nvm sentrock mntnrock islrockp n7fe mev nsg7nm vc_ip vc_eng cip"
+
+alias setup-npc    "echo setup_proj npc_ip -disk users_181; setup_proj npc_ip -disk users_181"
+alias turnin-npc   "turnin -c npc -s 1.5 -b 2.0"
+
+alias mkmev1       "make alt_config=mev1"
+alias mkhur        "make alt_config=huntsrock"
+#------------------------------------------------------------------------------
+# Environment variables
+#------------------------------------------------------------------------------
+
+setenv EDITOR /usr/intel/bin/vim
+
+setenv http_proxy http://proxy-chain.intel.com:911
+setenv https_proxy http://proxy-chain.intel.com:912
+setenv ftp_proxy http://proxy-chain.intel.com:911
+setenv socks_proxy http://proxy-us.intel.com:1080
+setenv no_proxy intel.com,.intel.com,localhost,127.0.0.1
