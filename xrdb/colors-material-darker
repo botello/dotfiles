@@ -1,0 +1,79 @@
+! Base16 Material Darker
+! Scheme: Nate Peterson
+
+#define base00 #212121
+#define base01 #303030
+#define base02 #353535
+#define base03 #4a4a4a
+#define base04 #b2ccd6
+#define base05 #eeffff
+#define base06 #eeffff
+#define base07 #ffffff
+#define base08 #f07178
+#define base09 #f78c6c
+#define base0A #ffcb6b
+#define base0B #c3e88d
+#define base0C #89ddff
+#define base0D #82aaff
+#define base0E #c792ea
+#define base0F #ff5370
+
+*foreground:    base05
+*background:    base00
+*cursorColor:   base05
+
+*color0:        base00
+*color8:        base08
+*color1:        base01
+*color9:        base09
+*color2:        base02
+*color10:       base0A
+*color3:        base03
+*color11:       base0B
+*color4:        base04
+*color12:       base0C
+*color5:        base05
+*color13:       base0D
+*color6:        base06
+*color14:       base0E
+*color7:        base07
+*color15:       base0F
+
+XTerm*.foreground:    base05
+XTerm*.background:    base00
+XTerm*.color0:        base00
+XTerm*.color8:        base08
+XTerm*.color1:        base01
+XTerm*.color9:        base09
+XTerm*.color2:        base02
+XTerm*.color10:       base0A
+XTerm*.color3:        base03
+XTerm*.color11:       base0B
+XTerm*.color4:        base04
+XTerm*.color12:       base0C
+XTerm*.color5:        base05
+XTerm*.color13:       base0D
+XTerm*.color6:        base06
+XTerm*.color14:       base0E
+XTerm*.color7:        base07
+XTerm*.color15:       base0F
+
+UXTerm*.foreground:   base05
+UXTerm*.background:   base00
+UXTerm*.color0:       base00
+UXTerm*.color8:       base08
+UXTerm*.color1:       base01
+UXTerm*.color9:       base09
+UXTerm*.color2:       base02
+UXTerm*.color10:      base0A
+UXTerm*.color3:       base03
+UXTerm*.color11:      base0B
+UXTerm*.color4:       base04
+UXTerm*.color12:      base0C
+UXTerm*.color5:       base05
+UXTerm*.color13:      base0D
+UXTerm*.color6:       base06
+UXTerm*.color14:      base0E
+UXTerm*.color7:       base07
+UXTerm*.color15:      base0F
+

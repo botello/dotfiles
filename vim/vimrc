@@ -11,7 +11,7 @@
 "source $VIMRUNTIME/mswin.vim
 set nocompatible
 set hidden
-behave mswin
+"behave mswin
 filetype off
 set t_BE=
 
@@ -20,10 +20,11 @@ set t_BE=
 "--------------------------------------------------------------------------
 if
     \$COLORTERM == 'gnome-terminal' ||
-    \$COLORTERM == 'xfce4-terminal'
-    "\$COLORTERM == '1' ||
+    \$COLORTERM == 'xfce4-terminal' ||
+    \$TERM == 'xterm-256color'
     set t_Co=256
-    let base16colorspace=256
+    "set t_AB=^[[48;5;%dm
+    "set t_AF=^[[38;5;%dm
 endif
 
 " In many terminal emulators the mouse works just fine, thus enable it.
@@ -40,38 +41,50 @@ let $GIT_SSL_NO_VERIFY = 'true'
 call vundle#begin('$HOME/dotfiles/vim/bundle')
 
 Plugin 'VundleVim/Vundle.vim'
+
+" Appeareance plugins
+Plugin 'chriskempson/base16-vim'
+"Plugin 'jeffkreeftmeijer/vim-dim'
+"Plugin 'chrisbra/Colorizer'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+
+" Behaviour plugins
+"Plugin 'kien/ctrlp.vim'
 "Plugin 'easymotion/vim-easymotion'
 "Plugin 'vim-ctrlspace/vim-ctrlspace'
-
-Plugin 'chriskempson/base16-vim'
-Plugin 'craigemery/vim-autotag'
+"Plugin 'craigemery/vim-autotag'
 "Plugin 'vim-scripts/taglist.vim'
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
 "Plugin 'airblade/vim-gitgutter'
+"Plugin 'vimtaku/hl_matchit.vim'
+"Plugin 'ervandew/supertab'
+"Plugin 'majutsushi/tagbar'
 
+" Syntax plugins
+"Plugin 'nachumk/systemverilog.vim'
 Plugin 'vhda/verilog_systemverilog.vim'
-Plugin 'vim-scripts/verilog_emacsauto.vim'
-
+Plugin 'vim-scripts/systemrdl.vim'
+"Plugin 'vim-scripts/verilog_emacsauto.vim'
 "Plugin 'bjoernd/vim-syntax-simics'
 "Plugin 'kergoth/vim-bitbake'
 Plugin 'tpope/vim-markdown'
-Plugin 'vim-scripts/systemrdl.vim'
 
 call vundle#end()
 
 filetype plugin indent on
 "set autoindent  " always set autoindenting on
 
+
 "--------------------------------------------------------------------------
 " Settings
 "--------------------------------------------------------------------------
+set path+=.,**
 set encoding=utf-8
 set fileformats=unix,dos,mac
 set laststatus=2
+set showtabline=1
 set cmdheight=2
-set backspace=indent,eol,start  " same as 2
 set autochdir
 set history=1000
 set shortmess=atI
@@ -79,35 +92,57 @@ set report=0
 set showcmd
 set completeopt=longest,menu " for omnipotent
 
-set number
-"set textwidth=78  " auto break lines
-set showtabline=0
+set number ruler
 set nowrap
 set linebreak
 set breakindent
-set showbreak=\\\\\
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-set nolazyredraw
-set scrolloff=5
-set wildignore=.svn,CVS,.git,.hg,*.o,*.so,*.obj,*.swp,*.jpg,*.png,*.gif
+set hlsearch incsearch ignorecase smartcase
+set backspace=indent,eol,start  " same as 2
+
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
+
+"set nolazyredraw
+
 set wildmenu
 set wildmode=list:longest,full
+set wildignore=.svn,CVS,.git,.hg,*.o,*.so,*.obj,*.swp,*.jpg,*.png,*.gif
+set wildignore+=*/.git/**/*,*/.hg/**/*,*/**.svn/**/*
+set wildignore+=tags
+set wildignore+=*.tar.*
+set wildignorecase
+
+
+if !&scrolloff
+  set scrolloff=10
+endif
+if !&sidescrolloff
+  set sidescrolloff=10
+endif
+set display+=lastline
+
+syntax enable
 
 " Folding
 "set foldmethod=marker
-set foldmethod=indent
+"set foldmethod=indent
+set foldmethod=syntax
 set foldlevel=0
 set foldnestmax=6
 set foldlevelstart=20
 set foldcolumn=2
 set nofoldenable
 
-
 nnoremap <space> za
 vnoremap <space> zf
+
+set backspace=indent,eol,start  " same as 2
+"Make Backspace and Delete to work everywhere
+inoremap  <c-h>
+cnoremap  <c-h>
+
 
 " Spaces instead of tabs
 let tabsize=2
@@ -117,15 +152,12 @@ execute "set softtabstop=".tabsize
 set expandtab
 
 " Max syntax column for loooong lines
-set synmaxcol=200
-set colorcolumn=80
+set synmaxcol=300 colorcolumn=80
+"set textwidth=78  " auto break lines
 
 " Enable spelling
-"set spell spelllang=en_us
-"set complete+=kspell
-
-" Highlight trailing spaces
-match Visual "\s\+$"
+set nospell spelllang=en_us
+set complete+=kspell
 
 " Search for (visual) selected text using mapped '*' and '#'.
 vnoremap <silent> * :<C-U>
@@ -139,26 +171,28 @@ vnoremap <silent> # :<C-U>
         \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
     \gV:call setreg('"', old_reg, old_regtype)<CR>
 
+
+if v:version > 703 || v:version == 703 && has("patch541")
+  set formatoptions+=j " Delete comment character when joining commented lines
+endif
+
+
 " Tag file location
-set tags=tags;
-set tags+=.tags;
-set tags+=..\tags;
-set tags+=..\..\tags;
-set tags+=..\..\..\tags;
-set tags+=..\..\..\..\tags;
-set tags+=..\..\..\..\..\tags;
-set tags+=..\..\..\..\..\..\tags;
-let g:autoTagsFile=".tags"
+if has('path_extra')
+  setglobal tags-=./tags tags-=./tags; tags^=./tags;
+endif
+"let g:autoTagsFile=".tags"
 
 " Remember cursor position between vim sessions
 if has("autocmd")
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 endif
 
+" Highlight trailing spaces
+match Visual "\s\+$"
+
 " Trailing whitespace
 set nolist
-set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
-"set listchars=eol:¶,tab:»·,trail:·,extends:»,precedes:«,eol:¶
 " Only shown when not in insert mode so I don't go insane.
 augroup trailing
     au!
@@ -169,19 +203,19 @@ augroup END
 " Only show cursorline in the current window and in normal mode.
 augroup cline
     au!
-    "au WinLeave * set nocursorcolumn
-    "au WinEnter * set cursorcolumn
-    "au InsertEnter * set nocursorcolumn
-    "au InsertLeave * set cursorcolumn
     au WinLeave * set nocursorline
     au WinEnter * set cursorline
     au InsertEnter * set nocursorline
     au InsertLeave * set cursorline
 augroup END
+set cursorline
+
+" Jump to buffer
+nnoremap <silent> gb :ls<CR>:buffer<SPACE>
 
 " Maping next/prev buffer to <TAB> and <SHIFT-TAB> key in cmd mode
 nnoremap <silent> <Tab> :bnext<cr>
-nnoremap <silent> <S-Tab> :bprev<cr>
+"nnoremap <silent> <S-Tab> :bprev<cr>
 
 " Maping next/prev buffer to <ALT-l> and <ALT-h> key in cmd mode
 "execute "set <A-h>=\eh"
@@ -189,18 +223,11 @@ nnoremap <silent> <S-Tab> :bprev<cr>
 "nnoremap <silent> <A-h> :bprev<cr>
 "nnoremap <silent> <A-l> :bnext<cr>
 
-nnoremap <silent> <F12> :TlistToggle<cr>
-
 " Disable backup file, enable read modified files
-set nobackup
-set nowarn
-set noswapfile
-set autoread
+set nobackup nowarn noswapfile autoread
 
 " Disable all sounds and visual bells
-set noerrorbells
-set visualbell
-set t_vb=
+set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
 
 " Smarter j and k navigation. Display line movements unless
@@ -213,16 +240,39 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Grepping
-nnoremap <F3> :execute "grep -srnwI --exclude-dir=.git --exclude=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
+if executable("ag")
+  set grepprg=ag\ --vimgrep
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_use_caching = 0
+endif
+nnoremap <F3> :execute "grep ".expand("<cword>") <BAR> cwindow<CR>
+"nnoremap <F3> :execute "grep -srnwI --exclude-dir=.git --exclude=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
+nnoremap <F4> :grep! "\b<C-R><C-W>\b"<CR> :cw<CR>
 
-" Tree style for Explore
-"let g:netrw_liststyle = 3  " 3 for tree, 2 for horizontal list
+let g:netrw_banner=0        " disable banner
+let g:netrw_browse_split=0  " open file in: same window, hsplit, vsplit, tab, prev win
+let g:netrw_altv=1          " open splits to the right
+let g:netrw_liststyle=3     " 3 for tree, 2 for horizontal list
+let g:netrw_winsize=20      " use 20% of window
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 "--------------------------------------------------------------------------
 " Plugin configuration
 "--------------------------------------------------------------------------
 
-let g:load_doxygen_syntax = 1
+"let g:load_doxygen_syntax = 1
+
+""" 'vim-airline/vim-airline'
+let g:airline_powerline_fonts = 1
+
+if (g:airline_powerline_fonts == 1)
+  set showbreak=\\\\\
+  set listchars=eol:¶,tab:»·,trail:·,extends:»,precedes:«,eol:¶
+else
+  set showbreak=\\\\\
+  set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+endif
 
 function! AirlineInit()
     "let g:airline_detect_spell = 0
@@ -254,42 +304,23 @@ function! AirlineInit()
         \ '' : 'S',
         \ }
 
+    " For more symbols refer to :help airline-customization
     if (g:airline_powerline_fonts == 1)
         " For regular fonts only
         if !exists('g:airline_symbols')
           let g:airline_symbols = {}
         endif
 
-        " unicode symbols
-        "let g:airline_left_sep = '»'
-        "let g:airline_left_sep = '▶'
-        "let g:airline_right_sep = '«'
-        "let g:airline_right_sep = '◀'
-
-        "let g:airline_symbols.crypt = '🔒'
-        "let g:airline_symbols.linenr = '☰'
-        "let g:airline_symbols.linenr = '␊'
-        "let g:airline_symbols.linenr = '␤'
-        "let g:airline_symbols.linenr = '¶'
-        "let g:airline_symbols.maxlinenr = ''
-        "let g:airline_symbols.maxlinenr = '㏑'
-        "let g:airline_symbols.branch = '⎇'
-        "let g:airline_symbols.paste = 'ρ'
-        "let g:airline_symbols.paste = 'Þ'
-        "let g:airline_symbols.paste = '∥'
-        "let g:airline_symbols.spell = 'Ꞩ'
-        "let g:airline_symbols.notexists = '∄'
-        "let g:airline_symbols.whitespace = 'Ξ'
-
-        "" powerline symbols
-        "let g:airline_left_sep = ''
-        "let g:airline_left_alt_sep = ''
-        "let g:airline_right_sep = ''
-        "let g:airline_right_alt_sep = ''
-        "let g:airline_symbols.linenr = '☰'
-        "let g:airline_symbols.branch = ''
-        "let g:airline_symbols.readonly = ''
-        "let g:airline_symbols.maxlinenr = ''
+        " powerline symbols
+        let g:airline_left_sep          = ''
+        let g:airline_left_alt_sep      = ''
+        let g:airline_right_sep         = ''
+        let g:airline_right_alt_sep     = ''
+        "let g:airline_symbols.linenr    = '☰'
+        let g:airline_symbols.branch    = ''
+        let g:airline_symbols.readonly  = ''
+        let g:airline_symbols.maxlinenr = ''
+        let g:airline_symbols.paste     = 'Þ'
 
     else
         " For regular fonts only
@@ -308,14 +339,54 @@ function! AirlineInit()
         let g:airline_symbols.maxlinenr = ''
     endif
 endfunction
-let g:airline_powerline_fonts = 0
 autocmd VimEnter * call AirlineInit()
 
-let g:syntastic_c_remove_include_errors = 1
-let g:syntastic_c_no_include_search = 1
 
+" Load matchit.vim, but only if the user hasn't installed a newer version.
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
+
+if exists('loaded_matchit')
+  let b:match_ignorecase=0
+  let b:match_words=
+    \ '\<begin\>:\<end\>,' .
+    \ '\<if\>:\<else\>,' .
+    \ '\<module\>:\<endmodule\>,' .
+    \ '\<class\>:\<endclass\>,' .
+    \ '\<program\>:\<endprogram\>,' .
+    \ '\<clocking\>:\<endclocking\>,' .
+    \ '\<property\>:\<endproperty\>,' .
+    \ '\<sequence\>:\<endsequence\>,' .
+    \ '\<package\>:\<endpackage\>,' .
+    \ '\<covergroup\>:\<endgroup\>,' .
+    \ '\<primitive\>:\<endprimitive\>,' .
+    \ '\<specify\>:\<endspecify\>,' .
+    \ '\<generate\>:\<endgenerate\>,' .
+    \ '\<interface\>:\<endinterface\>,' .
+    \ '\<function\>:\<endfunction\>,' .
+    \ '\<task\>:\<endtask\>,' .
+    \ '\<case\>\|\<casex\>\|\<casez\>:\<endcase\>,' .
+    \ '\<fork\>:\<join\>\|\<join_any\>\|\<join_none\>,' .
+    \ '`ifdef\>:`else\>:`endif\>,'
+endif
+
+
+""" 'vimtaku/hl_matchit.vim'
+let g:hl_matchit_enable_on_vim_startup = 1
+"let g:hl_matchit_hl_groupname = 'Search'
+"let g:hl_matchit_speed_level = 1 " or 2. 1 is recommended
+"let g:hl_matchit_allow_ft = 'html,vim,sh,verilog_systemverilog'
+
+
+""" 'scrooloose/syntastic'
+"let g:syntastic_c_remove_include_errors = 1
+"let g:syntastic_c_no_include_search = 1
+
+""" 'airblade/vim-gitgutter'
 "let g:gitgutter_max_signs = 2000
 
+""" 'easymotion/vim-easymotion'
 "map <Leader> <Plug>(easymotion-prefix)
 "map  / <Plug>(easymotion-sn)
 "omap / <Plug>(easymotion-tn)
@@ -327,15 +398,17 @@ let g:syntastic_c_no_include_search = 1
 ""map <Leader>j <Plug>(easymotion-j)
 ""map <Leader>k <Plug>(easymotion-k)
 
-let Tlist_Use_Right_Window = 1
+""" 'vim-scripts/taglist.vim'
+"let Tlist_Use_Right_Window = 1
+"nnoremap <silent> <F12> :TlistToggle<cr>
 
-syntax enable
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-else
-    set background=dark
-    colorscheme darkblue
+""" 'vim-scripts/taglist.vim'
+"nmap <F8> :TagbarToggle<CR>
+
+""" 'chriskempson/base16-vim'
+if !exists('g:colors_name') || g:colors_name != 'base16-monokai'
+  let base16colorspace=256  " Access colors present in 256 colorspace
+  colorscheme base16-monokai
 endif
 
 "--------------------------------------------------------------------------
@@ -371,22 +444,23 @@ function! RemoveTrailingSpaces()
     silent! execute '%s/\s\+$//ge'
     silent! execute 'g/\v^$\n*%$/norm! dd'
 endfunction
+command RemoveTrailingSpaces call RemoveTrailingSpaces()
 
 "#############################################################################
 " GUI settings (.gvimrc)
 "#############################################################################
 if has("gui_running")
-    let base16colorspace=256
-
     if has("gui_gtk2") || has("gui_gtk3")
+        let g:airline_powerline_fonts = 1
         "set guifont=Meslo\ LG\ S\ DZ\ 13
         "set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline\ 11
         "set guifont=Bistream\ Vera\ Sans\ Mono\ 11
         "set guifont=Source\ Code\ Pro\ for\ Powerline\ 9
         "set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 11
         "set guifont=DejaVu\ Sans\ Mono\ 11
-        set guifont=Monospace\ 11
-        set printfont=Monospace\ 11
+        set guifont=TamzenForPowerline\ 9
+        "set guifont=Monospace\ 8
+        "set printfont=Monospace\ 8
         "set guifont=Source\ Code\ Pro\ for\ Powerline\ Medium\ 11
         "set guifont=DejaVu\ Sans\ Mono\ 8
         "set guifont=Monospace\ 8
@@ -407,8 +481,9 @@ if has("gui_running")
     endif
 
     " vertical space between text lines.
-    set linespace=0
+    set linespace=-1
 
+    " Remove top menus and toolbars by default
     set guioptions-=b
     set guioptions-=m
     set guioptions-=T
@@ -427,5 +502,6 @@ endif
 "#############################################################################
 " Syntax highlight for custom file extensions
 "#############################################################################
-au BufNewFile,BufRead *.lds set filetype=ld
-au BufNewFile,BufRead *.rdl set filetype=systemrdl
+au BufNewFile,BufRead *.lds  set filetype=ld
+au BufNewFile,BufRead *.rdl  set filetype=systemrdl
+au BufNewFile,BufRead *.tcfg set filetype=perl

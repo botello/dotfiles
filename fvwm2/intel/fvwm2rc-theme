@@ -1,0 +1,313 @@
+# EC Standard Login Environment -*- sh -*-
+# user .fvwm2rc-theme file
+# $Source: /nfs/pdx/disks/comp.ct.3/source_archives/pkgs/eclogin/cvs/ec_environ-1.0/release/user/fvwm2rc-theme,v $
+# $Revision: 1.16 $
+#
+## See /usr/intel/common/pkgs/eclogin/1.0/ec/fvwm2rc-theme and fvwm(1)
+
+#### Title Bar Buttons are numbered like so: 13579------------08642
+
+# Menu Button
+ButtonStyle 1 Vector 5 20x40@3 20x60@3 80x60@3 80x40@3 20x40@3
+# Stick Button (Pushpin)
+ButtonStyle 3 10 25x20@3 30x25@3 30x55@3 43x55@3 50x85@3 57x55@3 70x55@3 70x25@3 75x20@3 25x20@3
+# Shade Button
+ButtonStyle 5 Vector 5 20x40@3 20x60@3 80x60@3 80x40@3 20x40@3
+# Lightning Bolt Button
+#ButtonStyle 7 Vector 7 70x15@3 30x55@3 50x55@3 40x85@3 80x45@3 60x45@3 70x15@3
+
+# Maximize Horizontally Button
+ButtonStyle 0 13 10x50@3 30x25@3 30x40@3 30x40@3 60x40@3 60x25@3 85x50@3 60x75@3 60x60@3 30x60@3 30x75@3 10x50@3 10x50@3
+# Maximize Vertically Button
+ButtonStyle 8 12 50x10@3 25x30@3 40x30@3 40x60@3 25x60@3 50x85@3 75x60@3 60x60@3 60x30@3 75x30@3 50x10@3 50x10@3
+# Iconify Button
+ButtonStyle 6 Vector 4 50x65@3 35x35@3 65x35@3 50x65@3
+# Maximize Button
+ButtonStyle 4 Vector 4 50x35@3 65x65@3 35x65@3 50x35@3
+# Delete/Kill Button (X shaped)
+ButtonStyle 2 Vector 17 20x20@3 30x20@3 50x40@3 70x20@3 80x20@3 80x30@3 60x50@3 80x70@3 80x80@3 70x80@3 50x60@3 30x80@3 20x80@3 20x70@3 40x50@3 20x30@3 20x20@3
+
+# Menu Button
+#ButtonStyle 1 Vector 5 20x40@1 20x60@1 80x60@3 80x40@3 20x40@1
+# Stick Button (Pushpin)
+#ButtonStyle 3 10 25x20@1 30x25@1 30x55@1 43x55@3 50x85@1 57x55@3 70x55@3 70x25@3 75x20@3 25x20@1
+# Shade Button
+#ButtonStyle 5 Vector 5 20x40@3 20x60@3 80x60@1 80x40@1 20x40@3
+# Lightning Bolt Button
+#ButtonStyle 7 Vector 7 70x15@3 30x55@1 50x55@3 40x85@1 80x45@3 60x45@1 70x15@3
+
+# Maximize Horizontally Button
+#ButtonStyle 0 13 10x50@1 30x25@1 30x40@1 30x40@1 60x40@1 60x25@1 85x50@1 60x75@3 60x60@3 30x60@3 30x75@3 10x50@3 10x50@1
+# Maximize Vertically Button
+#ButtonStyle 8 12 50x10@1 25x30@1 40x30@1 40x60@1 25x60@1 50x85@1 75x60@3 60x60@3 60x30@3 75x30@3 50x10@3 50x10@1
+# Iconify Button
+#ButtonStyle 6 Vector 4 50x65@1 35x35@1 65x35@1 50x65@3
+# Maximize Button
+#ButtonStyle 4 Vector 4 50x35@1 65x65@3 35x65@3 50x35@1
+# Delete/Kill Button (X shaped)
+#ButtonStyle 2 Vector 17 20x20@1 30x20@1 50x40@1 70x20@1 80x20@1 80x30@3 60x50@3 80x70@1 80x80@3 70x80@3 50x60@3 30x80@3 20x80@3 20x70@3 40x50@1 20x30@3 20x20@1
+
+############################################################################
+# Mouse Bindings
+############################################################################
+
+#### Mouse Bindings for the Title Bar Buttons above
+# Button|Context|Modifi|Function
+
+#### Title Bar Buttons are numbered like so: 13579------------08642
+#
+Mouse 0 1   A   PopUp "Window_Ops"
+Mouse 0 3   A   Stick
+Mouse 0 5   A   WindowShade
+
+Mouse 0 0   A   Maximize 100 0
+Mouse 0 8   A   Maximize 0 -20p
+Mouse 0 6   A   Iconify
+Mouse 0 4   A   Maximize 100 -20p
+Mouse 0 2   A   Close
+
+Mouse 1 R   A   PopUp "MainMenu"
+Mouse 3 TFS A   PopUp "Window_Ops"
+Mouse 3 R   A   WindowList
+Mouse 3 R   C   Module FvwmPager -transient
+Mouse 4 R   A   Scroll +0 -20
+Mouse 5 R   A   Scroll +0 +20
+Mouse 4 A   M   Scroll +0 -10
+Mouse 5 A   M   Scroll +0 +10
+Mouse 4 A   MC  Scroll -10 +0
+Mouse 5 A   MC  Scroll +10 +0
+
+#Mouse 1 FS  A   Function "Resize-or-Raise"
+#Mouse 1 TI  A   Function "Move-or-Raise"
+
+#Mouse 1 I   A   Function "Move-or-Iconify"
+#Mouse 3 I   A   PopUp "Window_Ops"
+
+# MouseFocus is the default if none is
+# specified; focus changes as mouse enters
+# or leaves a window
+#Style "*"	MouseFocus
+
+# SloppyFocus leaves focus in the last window
+# active after mouse leaves, switches when
+# when mouse enters a new window
+#Style "*"	SloppyFocus
+
+# ClickToFocus leaves focus in the last window
+# active after mouse leaves, switches only
+# when mouse enters a new window and mouse
+# button 1 is clicked to change focus
+Style "*"	ClickToFocus
+
+# Mouse scrolling of the viewer window across the virtual workspace:
+# default 0 0 disables this feature, most people do not want it.
+EdgeScroll	0 0
+#
+# Other examples: permit edge scrolling 25% both directions.
+#EdgeScroll	25 25
+#
+# Permit horizontal scrolling only by 1 full pane (0 100 for vertical).
+#EdgeScroll 100 0
+
+# default bindings have been set for Scroll:
+# alt+arrow     10%
+# control+arrow 100%
+
+# uncomment if you prefer Ctrl-Arrow keyboard scrolling to wrap around
+#Key Left	A	C	Scroll	-100000	+0
+#Key Right	A	C	Scroll	+100000	+0
+#Key Up		A	C	Scroll	+0	-100000
+#Key Down	A	C	Scroll	+0	+100000
+
+# system defaults apply functions to these keys which may disable features
+# of some applications (e.g. mozilla alt-left/alt-right for history back/fwd)
+#
+# uncomment if you prefer to disable the default alt/arrow and/or
+# ctrl/arrow scrolling of the virtual workspace
+#
+#Key Left        A       M       -
+#Key Right       A       M       -
+#Key Up          A       M       -
+#Key Down        A       M       -
+#
+#Key Left        A       C       -
+#Key Right       A       C       -
+#Key Up          A       C       -
+#Key Down        A       C       -
+
+# Prior to March 2006 this feature was opt-out.
+# A few customers asked for it to be opt-in.
+#
+# If you do not need function keys passed to other
+# applications (CAD tools), you can make these
+# bindings work without the shift key.  Defaults
+# use this:  Key F#   A   S  GotoPage # #
+#
+# Changing S to N enables the function with no modifiers.
+#
+# Map Function keys to 4 pages, Control Function keys to 4 desks
+#
+#       +-------+-------+
+#       |  F9   |  F10  |
+#       +-------+-------+
+#       |  F11  |  F12  |
+#       +-------+-------+
+
+# These functions require shift key to activate so
+# we do not disable F-keys in other applications; some
+# cad tools have frequently used functions bound to
+# them.
+#
+#Key F9          A       N       GotoPage 0 0
+#Key F10         A       N       GotoPage 1 0
+#Key F11         A       N       GotoPage 0 1
+#Key F12         A       N       GotoPage 1 1
+
+# If you want to remove bindings completely,
+# use the null "-" action as follows:
+#
+# Key F9		A	S	-
+# Key F10		A	S	-
+# Key F11		A	S	-
+# Key F12		A	S	-
+# Key F9		R	N	-
+# Key F10		R	N	-
+# Key F11		R	N	-
+# Key F12		R	N	-
+
+
+# Similar defaults are set for <ctrl>+F9-F12
+# in the fvwm2rc-hbuttonbar and -vbuttonbar.
+# If your application uses control-F9 etc.,
+# you may want to unbind them as follows:
+#
+#Key F9                A       C       -
+#Key F10               A       C       -
+#Key F11               A       C       -
+#Key F12               A       C       -
+
+
+#If you prefer Icons not to stick across Pages
+#Style "*" SlipperyIcon
+
+#If you prefer smaller xterm icons
+#Style "xterm*"     BorderWidth 5, HandleWidth 5, Icon IconNotThere.xpm, Title
+
+#If you prefer to double click on icons to de-iconify instead of single click
+#DestroyFunc "Move-or-Iconify"
+#AddToFunc "Move-or-Iconify" "M" Move
+#+                           "D" Iconify
+
+
+#----------------------------------------------------------------------------
+#----------------------------------------------------------------------------
+#----------------------------------------------------------------------------
+#----------------------------------------------------------------------------
+# adelrior theme
+
+
+# Program Launching Functions
+DestroyFunc FvwmXTerm
+AddToFunc   FvwmXTerm
++ I Exec exec uxterm
+#+ I Exec exec xterm -fn fixed
+
+DestroyFunc FvwmFirefox
+AddToFunc   FvwmFirefox
++ I Exec exec firefox
+
+
+# 'rubber-band' window-borders when moving and resizing windows.
+XORvalue 55555
+
+# Make our windows snap-up against other windows and make icons snap
+# up against other icons
+SnapAttraction 20 SameType
+
+# Font configuration
+#WindowFont      -adobe-helvetica-bold-r-*-*-12-*-*-*-*-*-*-*
+#IconFont        -adobe-helvetica-bold-r-*-*-10-*-*-*-*-*-*-*
+WindowFont      -*-fixed-medium-r-*-*-14-*-*-*-*-*-*-*
+IconFont        -*-fixed-medium-r-*-*-12-*-*-*-*-*-*-*
+
+# Style related options
+Style "*" ForeColor #627e99
+Style "*" BackColor #0b1c2c
+Style "*" SmartPlacement, CleverPlacement
+Style "*" StickyIcon
+
+Style "*" NoIcon
+#Style "*" IconBox 1 1 600 400
+#Style "*" IconFill top left
+
+Style "*" BorderWidth 5, HandleWidth 5
+Style "*" NoPPosition
+Style "*" NakedTransient
+#Style "*" SloppyFocus, MouseFocusClickRaises
+Style "*" MouseFocusClickRaises
+Style "*" ResizeOutline
+
+
+# HighlightColor
+HilightColor  #aabcce #223b54
+
+# TitleStyle
+TitleStyle ActiveUp Solid #223b54 -- flat
+TitleStyle ActiveDown Solid #223b54 -- flat
+TitleStyle Inactive Solid #0b1c2c -- flat
+
+# The Second Variation of TitleStyle:
+TitleStyle LeftJustified
+
+# Button Styles
+ButtonStyle All -- UseTitleStyle Flat
+
+# BorderStyle
+BorderStyle Active Solid #223b54 -- NoInset HiddenHandles
+BorderStyle Inactive Solid #0b1c2c -- NoInset HiddenHandles
+
+
+*FvwmTaskBarBack #223b54
+*FvwmTaskBarFore #aabcce
+*FvwmTaskBarTipsBack #223b54
+*FvwmTaskBarTipsFore #aabcce
+*FvwmTaskBarIconBack #223b54
+*FvwmTaskBarIconFore #627e99
+*FvwmTaskBarGeometry +0-1
+*FvwmTaskBarFont       -*-fixed-medium-r-*-*-14-*-*-*-*-*-*-*
+*FvwmTaskBarSelFont    -*-fixed-medium-r-*-*-14-*-*-*-*-*-*-*
+*FvwmTaskBarStatusFont -*-fixed-medium-r-*-*-14-*-*-*-*-*-*-*
+*FvwmTaskBar: Button Icon icons/mini.xterm.xpm, Action (Mouse 1) "FvwmXTerm"
+*FvwmTaskBar: Button Icon icons/mini.netscape.xpm , Action (Mouse 1) "FvwmFirefox"
+
+
+# MenuStyle
+MenuStyle * Background #223b54
+MenuStyle * ActiveFore #f7f9fb
+MenuStyle * ForeGround #aabcce
+MenuStyle * Hilight3DOff, BorderWidth 1 
+MenuStyle * PopupOffset 0 100
+MenuStyle * VerticalItemSpacing 2 4, VerticalTitleSpacing 2 4
+MenuStyle * MenuFace Animation
+
+# Set up some desktop options
+#DesktopSize     4x1
+
+# EdgeResistance scrolling moving
+EdgeResistance  1000 1000
+
+# EdgeScroll horizontal vertical
+EdgeScroll      100 100
+EdgeThickness   1
+
+# OpaqueMoveSize percentage
+OpaqueMoveSize 100
+
+# Some Fvwm-Related Styles
+Style "Fvwm*"           NoTitle, NoHandles, Sticky, WindowListSkip
+Style "FvwmWinList"     NoTitle
+Style "FvwmPager"       StaysOnTop, BorderWidth 0
+Style "FvwmTaskBar"     !Borders, CirculateSkip, StaysOnTop, FixedPosition, FixedSize, !Iconifiable
+
+#SetAnimation  10  -.01 0 .01 .03 .08 .18 .3 .45 .6 .75 .85 .90 .94 .97 .99 1.0
+

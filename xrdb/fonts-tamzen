@@ -1,0 +1,27 @@
+Xft.dpi:         96
+Xft.antialias:   true
+Xft.hinting:     true
+Xft.rgba:        rgb
+Xft.autohint:    false
+Xft.hintstyle:   hintslight
+Xft.lcdfilter:   lcddefault
+Xft.embolden:    false
+Xft.render:      true
+
+! Tamzen fonts for use with Powerline
+XTerm*font  : -*-tamzenforpowerline-medium-*-*-*-12-*-*-*-*-*-*-*
+XTerm*font1 : -*-tamzenforpowerline-medium-*-*-*-9-*-*-*-*-*-*-*
+XTerm*font2 : -*-tamzenforpowerline-medium-*-*-*-12-*-*-*-*-*-*-*
+XTerm*font3 : -*-tamzenforpowerline-medium-*-*-*-13-*-*-*-*-*-*-*
+XTerm*font4 : -*-tamzenforpowerline-medium-*-*-*-15-*-*-*-*-*-*-*
+XTerm*font5 : -*-tamzenforpowerline-medium-*-*-*-16-*-*-*-*-*-*-*
+XTerm*font6 : -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
+
+! Tamzen fonts for use with Powerline
+UXTerm*font  : -*-tamzenforpowerline-medium-*-*-*-12-*-*-*-*-*-*-*
+UXTerm*font1 : -*-tamzenforpowerline-medium-*-*-*-9-*-*-*-*-*-*-*
+UXTerm*font2 : -*-tamzenforpowerline-medium-*-*-*-12-*-*-*-*-*-*-*
+UXTerm*font3 : -*-tamzenforpowerline-medium-*-*-*-13-*-*-*-*-*-*-*
+UXTerm*font4 : -*-tamzenforpowerline-medium-*-*-*-15-*-*-*-*-*-*-*
+UXTerm*font5 : -*-tamzenforpowerline-medium-*-*-*-16-*-*-*-*-*-*-*
+UXTerm*font6 : -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
