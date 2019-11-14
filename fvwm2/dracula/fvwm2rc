@@ -214,6 +214,10 @@ DestroyFunc ExecMC
 AddToFunc   ExecMC
 + I Exec exec xterm -u8 -s -e "/usr/intel/bin/mc"
 
+DestroyFunc ExecNautilus
+AddToFunc   ExecNautilus
++ I Exec exec /usr/bin/nautilus --browser --geometry=800x600
+
 ##     __            __   _         __
 ##    / /_____ __ __/ /  (_)__  ___/ /__
 ##   /  '_/ -_) // / _ \/ / _ \/ _  (_-<
@@ -357,6 +361,7 @@ DestroyMenu MenuFvwmRoot
 AddToMenu   MenuFvwmRoot "Quick Menu" Title
 + "X&Term %icons/mini.xterm.xpm%"          ExecTerm
 + "&Midnight Commander %mini-folder.xpm%"  ExecMC
++ "&Nautilus %mini-folder.xpm%"            ExecNautilus
 + "&Firefox %mini-mozilla.xpm%"            ExecFirefox
 + "&ION Netbatch"                          Exec exec /usr/intel/bin/Xion
 + "N&BFlow"                                Exec exec /usr/intel/bin/nbflow
@@ -384,6 +389,7 @@ AddToMenu   MenuPrograms "Programs" Title
 + "X&Term %icons/mini.xterm.xpm%"          ExecTerm
 + "&Firefox %mini-mozilla.xpm%"            ExecFirefox
 + "&Midnight Commander %mini-folder.xpm%"  ExecMC
++ "&Nautilus %mini-folder.xpm%"            ExecNautilus
 Test (x xcalc) + "Xcalc %mini-calc.xpm%"   Exec exec xcalc
 Test (x xmag)  + "Xmag %mini.xmag.xpm%"    Exec exec xmag
 + ""                                       Nop
@@ -672,12 +678,13 @@ DestroyModuleconfig FvwmTaskBar: *
 *FvwmTaskBar: SelFont    Shadow=1: -*-fixed-medium-r-*-*-12-*-*-*-*-*-*-*
 *FvwmTaskBar: StatusFont -*-fixed-medium-r-*-*-12-*-*-*-*-*-*-*
 
-*FvwmTaskBar: Button Icon mini-desktop.xpm,      Action (Mouse 1) ShowDesktop
+#*FvwmTaskBar: Button Icon mini-desktop.xpm,      Action (Mouse 1) ShowDesktop
 #*FvwmTaskBar: Button Icon mini-pager.xpm,        Action (Mouse 1) Popup MenuGoto
 *FvwmTaskBar: Button Title 1,                    Action (Mouse 1) GotoPage 0 0
 *FvwmTaskBar: Button Title 2,                    Action (Mouse 1) GotoPage 1 0
 *FvwmTaskBar: Button Title 3,                    Action (Mouse 1) GotoPage 2 0
 *FvwmTaskBar: Button Title 4,                    Action (Mouse 1) GotoPage 3 0
+#*FvwmTaskBar: Button Icon mini-folder.xpm,       Action (Mouse 1) ExecNautilus
 *FvwmTaskBar: Button Icon icons/mini.xterm.xpm,  Action (Mouse 1) ExecTerm
 
 Style FvwmTaskBar !Borders, StaysOnTop, FixedPosition, FixedSize, Sticky

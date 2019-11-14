@@ -20,6 +20,7 @@ alias la        "ls --color=auto --group-directories-first -Fa"
 alias ll        "ls --color=auto --group-directories-first -Fla"
 
 alias gvimr     "gvim --remote"
+alias vimless   "vim -u $HOME/.vimrc.pager -"
 
 alias base16-shell  "bash $HOME/dotfiles/shell/base16-shell/scripts/base16-monokai.sh"
 
@@ -27,6 +28,7 @@ alias gitlog    "git log --oneline --decorate --all --graph"
 #alias gitlog    "git log --graph \
 #                 --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
 #                 --abbrev-commit"
+#alias gitmylog    "gitlog --author=\"\`git config user.name\`\" "
 
 alias wash-mby-min  "wash -n user soc npg_rtl mby"
 alias wash-mby      "wash -n user soc npg_rtl mby \
@@ -43,9 +45,12 @@ alias wash-npc     "wash -n users mev srvr10nm nvm sentrock mntnrock islrockp n7
 
 alias setup-npc    "echo setup_proj npc_ip -disk users_181; setup_proj npc_ip -disk users_181"
 alias turnin-npc   "turnin -c npc -s 1.5 -b 2.0"
+alias clone-npc    "git clone -b 2.0 /p/npc_ip/repos/ip-npc-1.5"
 
-alias mkmev1       "make alt_config=mev1"
-alias mkhur        "make alt_config=huntsrock"
+alias cclogin      '/hds/eda/dt/sde/tools/em64t_SLES10/CCollab/latest/ccollab login'
+alias ccgui        '/hds/eda/dt/sde/tools/em64t_SLES10/CCollab/latest/ccollabgui'
+
+
 #------------------------------------------------------------------------------
 # Environment variables
 #------------------------------------------------------------------------------
