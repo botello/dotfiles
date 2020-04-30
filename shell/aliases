@@ -30,26 +30,35 @@ alias gitlog    "git log --oneline --decorate --all --graph"
 #                 --abbrev-commit"
 #alias gitmylog    "gitlog --author=\"\`git config user.name\`\" "
 
-alias wash-mby-min  "wash -n user soc npg_rtl mby"
-alias wash-mby      "wash -n user soc npg_rtl mby \
+alias wash-mby-min "wash -n user soc npg_rtl mby"
+alias wash-mby     "wash -n user soc npg_rtl mby \
                      ef1_x hdk10nm rvc shdk73 slx_16 slx_ip16 \
                      soc73 soc73proc srvr10nm stl_nx stl_x switchall"
 
-alias wash-mev-min  "wash -n users mev npg_rtl cip acdc"
-alias wash-mev      "wash -n users mev npg_rtl soc soc73 soc73proc cip acdc n7 n7fe n7na mp_tech_n7"
+alias wash-mev-min "wash -n users mev npg_rtl cip acdc"
+alias wash-mev     "wash -n users mev npg_rtl soc soc73 soc73proc cip acdc n7 n7fe n7na mp_tech_n7"
 
-alias setnhdk       "source /p/hdk/rtl/proj_tools/proj_binx/nhdk/latest/setnhdk.csh \!:*"
-
+alias setup-rdma   "cd /nfs/sc/disks/mst_pe_adelrior/rdma && source /nfs/sc/disks/mst_pe_common/setup/share.csh"
+alias clone-rdma   "setnhdk -m rnc-mev-x0 -w \!:* && resetup subIP/rdma"
+alias turnin-rdma  "turnin -c rnc -s mev-x0 -b master"
 
 alias wash-npc     "wash -n users mev srvr10nm nvm sentrock mntnrock islrockp n7fe mev nsg7nm vc_ip vc_eng cip"
 
 alias setup-npc    "echo setup_proj npc_ip -disk users_181; setup_proj npc_ip -disk users_181"
-alias turnin-npc   "turnin -c npc -s 1.5 -b 2.0"
 alias clone-npc    "git clone -b 2.0 /p/npc_ip/repos/ip-npc-1.5"
+alias turnin-npc   "turnin -c npc -s 1.5 -b 2.0"
 
 alias cclogin      '/hds/eda/dt/sde/tools/em64t_SLES10/CCollab/latest/ccollab login'
 alias ccgui        '/hds/eda/dt/sde/tools/em64t_SLES10/CCollab/latest/ccollabgui'
 
+
+#ion --group DCG/MountEvans/PE --memory 32 --name !:1
+#create_ion_session_mevrtl       set_xterm_name !:1 ;ion --group DCG/MountEvans/RTL --memory 32 --name !:1
+#create_ion_session_rdmartl      set_xterm_name !:1 ;ion --group DCG/RDMA/RTL --memory 32 --name !:1
+
+
+alias find-sv   "find ./ -type f \( -iname \*.sv -o -iname \*.svh -o -iname \*.v -o -iname \*.vh -o -iname \*.def \)"
+alias ctags-sv  "find-sv -exec ctags {} +"
 
 #------------------------------------------------------------------------------
 # Environment variables

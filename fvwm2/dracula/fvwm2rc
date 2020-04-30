@@ -161,6 +161,34 @@ AddToFunc   SnapRight
 + I ThisWindow (!Borders) WindowStyle Borders
 + I ThisWindow (FixedPosition) WindowStyle !FixedPosition 
 + I Raise
+DestroyFunc SnapTopRight
+AddToFunc   SnapTopRight
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move 50 +0
++ I ThisWindow (!Borders) WindowStyle Borders
++ I ThisWindow (FixedPosition) WindowStyle !FixedPosition 
++ I Raise
+DestroyFunc SnapTopLeft
+AddToFunc   SnapTopLeft
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move +0 +0
++ I ThisWindow (!Borders) WindowStyle Borders
++ I ThisWindow (FixedPosition) WindowStyle !FixedPosition 
++ I Raise
+DestroyFunc SnapBottomRight
+AddToFunc   SnapBottomRight
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move 50 -23p
++ I ThisWindow (!Borders) WindowStyle Borders
++ I ThisWindow (FixedPosition) WindowStyle !FixedPosition 
++ I Raise
+DestroyFunc SnapBottomLeft
+AddToFunc   SnapBottomLeft
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move +0 -23p
++ I ThisWindow (!Borders) WindowStyle Borders
++ I ThisWindow (FixedPosition) WindowStyle !FixedPosition 
++ I Raise
 # Maximize Vertically
 DestroyFunc MaximizeY
 AddToFunc   MaximizeY
@@ -410,6 +438,10 @@ AddToMenu   MenuWindowOps "Window Ops" Title
 + "Send To..."                               Popup MenuSendTo
 + "Snap &Left"                               SnapLeft
 + "Snap &Right"                              SnapRight
++ "Snap Top Right"                           SnapTopRight
++ "Snap Top Left"                            SnapTopLeft
++ "Snap Bottom Right"                        SnapBottomRight
++ "Snap Bottom Left"                         SnapBottomLeft
 + ""                                         Nop
 + "Move %mini.move.xpm%"                     Move
 + "Resize %mini.resize.xpm%"                 Function Resize
