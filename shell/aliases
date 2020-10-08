@@ -38,11 +38,19 @@ alias wash-mby     "wash -n user soc npg_rtl mby \
 alias wash-mev-min "wash -n users mev npg_rtl cip acdc"
 alias wash-mev     "wash -n users mev npg_rtl soc soc73 soc73proc cip acdc n7 n7fe n7na mp_tech_n7"
 
+alias wash-npc     "wash -n users mev srvr10nm nvm sentrock mntnrock islrockp n7fe mev nsg7nm vc_ip vc_eng cip"
+
+alias setup-oyb    "source /p/hdk/rtl/hdk.rc -cfg xhdk74"
+alias wash-oyb     "wash -n -g soc soc73 soc73proc n6 n7 n7fe n7na oyb srvr10nm hdk10nm vid ipx_general_user npg_rtl"
+
+alias wash-vid     "wash -n -g soc soc73 soc73proc n6 n7 n7fe n7na oyb srvr10nm hdk10nm vid ipx_general_user npg_rtl mev"
+
+alias cd-rdma      "cd /nfs/sc/disks/mst_pe_adelrior/rdma"
 alias setup-rdma   "cd /nfs/sc/disks/mst_pe_adelrior/rdma && source /nfs/sc/disks/mst_pe_common/setup/share.csh"
 alias clone-rdma   "setnhdk -m rnc-mev-x0 -w \!:* && resetup subIP/rdma"
 alias turnin-rdma  "turnin -c rnc -s mev-x0 -b master"
 
-alias wash-npc     "wash -n users mev srvr10nm nvm sentrock mntnrock islrockp n7fe mev nsg7nm vc_ip vc_eng cip"
+alias ctags-rdma   "ctags ../asr/src/rtl/common/sv src/rtl/*/sv"
 
 alias setup-npc    "echo setup_proj npc_ip -disk users_181; setup_proj npc_ip -disk users_181"
 alias clone-npc    "git clone -b 2.0 /p/npc_ip/repos/ip-npc-1.5"
@@ -59,15 +67,3 @@ alias ccgui        '/hds/eda/dt/sde/tools/em64t_SLES10/CCollab/latest/ccollabgui
 
 alias find-sv   "find ./ -type f \( -iname \*.sv -o -iname \*.svh -o -iname \*.v -o -iname \*.vh -o -iname \*.def \)"
 alias ctags-sv  "find-sv -exec ctags {} +"
-
-#------------------------------------------------------------------------------
-# Environment variables
-#------------------------------------------------------------------------------
-
-setenv EDITOR /usr/intel/bin/vim
-
-setenv http_proxy http://proxy-chain.intel.com:911
-setenv https_proxy http://proxy-chain.intel.com:912
-setenv ftp_proxy http://proxy-chain.intel.com:911
-setenv socks_proxy http://proxy-us.intel.com:1080
-setenv no_proxy intel.com,.intel.com,localhost,127.0.0.1

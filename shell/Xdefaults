@@ -16,12 +16,14 @@
 !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-!! #include "dotfiles/xrdb/colors-dotshare"
+!!#include "dotfiles/xrdb/colors-dotshare"
 #include "dotfiles/shell/base16-xresources/xresources/base16-monokai.Xresources"
 #include "dotfiles/xrdb/fonts-tamzen"
 
 xterm*locale: true
 xterm*utf8: 1
+
+xterm*highligthReverse: true
 
 !! General xterm definitions.
 !!

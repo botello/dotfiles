@@ -22,7 +22,7 @@ if
     \$COLORTERM == 'gnome-terminal' ||
     \$COLORTERM == 'xfce4-terminal' ||
     \$TERM == 'xterm-256color'
-    set t_Co=256
+    "set t_Co=256
     "set t_AB=^[[48;5;%dm
     "set t_AF=^[[38;5;%dm
 endif
@@ -44,18 +44,25 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Appeareance plugins
 Plugin 'chriskempson/base16-vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
 
 " Behaviour plugins
 Plugin 'ervandew/supertab'
 Plugin 'vim-scripts/star-search'
 Plugin 'godlygeek/tabular'
+"Plugin 'vimtaku/hl_matchit.vim'
+
+" Tools
+"Plugin 'gyim/vim-boxdraw'
+"Plugin 'majutsushi/tagbar'
+Plugin 'preservim/nerdtree'
 
 " Syntax plugins
 Plugin 'vhda/verilog_systemverilog.vim'
-"Plugin 'vim-scripts/systemrdl.vim'
+Plugin 'vim-scripts/systemrdl.vim'
 "Plugin 'tpope/vim-markdown'
+"Plugin 'rust-lang/rust.vim'
 
 call vundle#end()
 
@@ -72,7 +79,7 @@ set path+=.,**
 set encoding=utf-8
 set fileformats=unix,dos,mac
 set laststatus=2
-set showtabline=2
+"set showtabline=2
 set cmdheight=2
 set autochdir
 set history=1000
@@ -81,7 +88,8 @@ set report=0
 set showcmd
 set completeopt=longest,menu " for omnipotent
 
-set nonumber
+set showmatch
+set number
 set ruler
 set nowrap
 set linebreak
@@ -94,7 +102,7 @@ set backspace=indent,eol,start  " same as 2
 "  nnoremap <silent> <C-l> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-l>
 "endif
 
-"set nolazyredraw
+set nolazyredraw
 
 set wildmenu
 set wildmode=list:longest,full
@@ -116,9 +124,10 @@ set display+=lastline
 syntax enable
 
 " Folding
+set foldmethod=manual
 "set foldmethod=marker
 "set foldmethod=indent
-set foldmethod=syntax
+"set foldmethod=syntax
 set foldlevel=0
 set foldnestmax=6
 set foldlevelstart=20
@@ -155,10 +164,12 @@ if v:version > 703 || v:version == 703 && has("patch541")
 endif
 
 
-" Tag file location
-"if has('path_extra')
-"  setglobal tags-=./tags tags-=./tags; tags^=./tags;
-"endif
+" Tag file location.
+" if auchochdir is set, use "tags;" -- colon marks it as recursive upward
+" if noautochdir, use "./tags;" instead
+if has('path_extra')
+  setglobal tags=tags;
+endif
 
 " Remember cursor position between vim sessions
 if has("autocmd")
@@ -171,19 +182,19 @@ match Visual "\s\+$"
 " Trailing whitespace
 set nolist
 " Only shown when not in insert mode so I don't go insane.
-augroup trailing
-    autocmd!
-    autocmd InsertEnter * execute "set list"
-    autocmd InsertLeave * execute "set nolist"
-augroup END
+"augroup trailing
+"    autocmd!
+"    autocmd InsertEnter * execute "set list"
+"    autocmd InsertLeave * execute "set nolist"
+"augroup END
 
 " Only show cursorline in the current window and in normal mode.
 augroup cline
     autocmd!
     autocmd WinLeave * set nocursorline
     autocmd WinEnter * set cursorline
-    autocmd InsertEnter * set nocursorline
-    autocmd InsertLeave * set cursorline
+    "autocmd InsertEnter * set nocursorline
+    "autocmd InsertLeave * set cursorline
 augroup END
 set cursorline
 
@@ -194,14 +205,20 @@ augroup qf
    autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>
 augroup END
 
+"augroup qfClose
+"   autocmd!
+"   " Close quickfix window if it is the last one
+"   autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
+"augroup END
+
 " Jump to buffer
 nnoremap <silent> gb :ls<CR>:buffer<SPACE>
 
 " Maping next/prev buffer to <TAB> and <SHIFT-TAB> key in cmd mode
 "nnoremap <silent> <Tab> :bnext<cr>
 "nnoremap <silent> <S-Tab> :bprev<cr>
-nnoremap <silent> <C-h> :bprev<cr>
-nnoremap <silent> <C-l> :bnext<cr>
+nnoremap <silent> <C-j> :bnext<cr>
+nnoremap <silent> <C-k> :bprev<cr>
 
 " Maping next/prev buffer to <ALT-l> and <ALT-h> key in cmd mode
 " To capture the correct key code, in <INSERT> mode, C-v, A-h --> ^[h
@@ -230,22 +247,24 @@ vnoremap > >gv
 
 " Grepping
 if executable("ag")
-  set grepprg=ag\ --vimgrep
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_use_caching = 0
+  set grepprg=ag\ --vimgrep\ --follow\ --silent
 endif
-"nnoremap <F3> :execute "grep ".expand("<cword>") <BAR> cwindow<CR>
-"nnoremap <F3> :execute "grep -srnwI --exclude-dir=.git --exclude=tags . -e " . expand("<cword>") . " " <bar> cwindow<CR>
-nnoremap <F3> :grep! "\b<C-R><C-W>\b"<CR> :cw<CR>
+nnoremap <F3> :grep!  "\b<C-R><C-W>\b"<CR> :cwindow<CR>
+"nnoremap <F4> :lgrep! "\b<C-R><C-W>\b"<CR> :lwindow<CR>
 
-let g:netrw_banner=0        " disable banner
-let g:netrw_browse_split=0  " open file in: same window, hsplit, vsplit, tab, prev win
-let g:netrw_altv=1          " open splits to the right
-let g:netrw_liststyle=3     " 3 for tree, 2 for horizontal list
-let g:netrw_winsize=20      " use 20% of window
-let g:netrw_list_hide=netrw_gitignore#Hide()
+
+" Prevent netrw to load
+let g:loaded_netrw       = 1
+let g:loaded_netrwPlugin = 1
+
+"let g:netrw_banner=0        " disable banner
+"let g:netrw_browse_split=0  " open file in: same window, hsplit, vsplit, tab, prev win
+"let g:netrw_altv=1          " open splits to the right
+"let g:netrw_liststyle=3     " 3 for tree, 2 for horizontal list
+"let g:netrw_winsize=20      " use 20% of window
+"let g:netrw_list_hide=netrw_gitignore#Hide()
 "let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-autocmd FileType netrw setl bufhidden=wipe
+"autocmd FileType netrw setl bufhidden=wipe
 
 "--------------------------------------------------------------------------
 " Plugin configuration
@@ -257,86 +276,106 @@ let g:SuperTabDefaultCompletionType = "context"
 "let g:SuperTabContextDefaultCompletionType = "<c-n>"
 "let g:SuperTabDefaultCompletionType = "<c-n>"
 
+""" 'majutsushi/tagbar'
+nmap <F8> :TagbarToggle<CR>
+let g:tagbar_type_verilog_systemverilog= {
+     \ 'ctagstype' : 'verilog_systemverilog',
+     \ 'kinds'     : [
+           \"c:classes:0",
+           \"t:tasks:0",
+           \"f:functions:0",
+           \"m:modules:0",
+           \"i:interfaces:0",
+           \"d:defines:1",
+           \"a:parameters:1",
+           \"e:typedefs:0",
+           \"v:variables:1",
+           \"p:programs:1",
+     \],
+     \ 'sort' : 1,
+     \ 'replace' : 1
+   \}
+let g:tagbar_iconchars = ['+', '-']
 
-""" 'vim-airline/vim-airline'
-let g:airline_powerline_fonts = 1
-
-if (g:airline_powerline_fonts == 1)
-  set showbreak=»\ »\ 
-  set listchars=eol:¶,tab:»·,trail:·,extends:»,precedes:«
-else
+"""" 'vim-airline/vim-airline'
+"let g:airline_powerline_fonts = 1
+"
+"if (g:airline_powerline_fonts == 1)
+"  set showbreak=»\ »\ 
+"  set listchars=eol:¶,tab:»·,trail:·,extends:»,precedes:«
+"else
   set showbreak=>\ >\ 
   set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
-endif
-
-let g:airline_skip_empty_sections = 1
-let g:airline#extensions#tabline#ignore_bufadd_pat =
-  \ 'gundo|undotree|vimfiler|tagbar|nerd_tree|startify|!'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_tabs = 0
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-
-function! AirlineInit()
-    "let g:airline_detect_spell = 0
-    "let g:airline#extensions#tabline#fnamemod = ':t'
-    "let g:airline#extensions#tabline#show_tab_type = 1
-    "let g:airline#extensions#syntastic#enabled = 1
-    "let g:airline#extensions#whitespace#enabled = 0
-    "let g:airline#extensions#whitespace#show_message = 1
-    if !exists('g:airline_mode_map')
-        let g:airline_mode_map = {}
-    endif
-
-    let g:airline_mode_map = {
-        \ '__' : '-',
-        \ 'n'  : 'N',
-        \ 'i'  : 'I',
-        \ 'R'  : 'R',
-        \ 'c'  : 'C',
-        \ 'v'  : 'V',
-        \ 'V'  : 'V',
-        \ '' : 'V',
-        \ 's'  : 'S',
-        \ 'S'  : 'S',
-        \ '' : 'S',
-        \ }
-
-    " For more symbols refer to :help airline-customization
-    if (g:airline_powerline_fonts == 1)
-        " For regular fonts only
-        if !exists('g:airline_symbols')
-          let g:airline_symbols = {}
-        endif
-
-        " powerline symbols
-        let g:airline_left_sep          = ''
-        let g:airline_left_alt_sep      = ''
-        let g:airline_right_sep         = ''
-        let g:airline_right_alt_sep     = ''
-        "let g:airline_symbols.linenr    = '☰'
-        let g:airline_symbols.branch    = ''
-        let g:airline_symbols.readonly  = ''
-        let g:airline_symbols.maxlinenr = ''
-        let g:airline_symbols.paste     = 'Þ'
-    else
-        " For regular fonts only
-        if !exists('g:airline_symbols')
-          let g:airline_symbols = {}
-        endif
-
-        " ascii symbols
-        let g:airline_left_sep = ' '
-        let g:airline_left_alt_sep = '|'
-        let g:airline_right_sep = ' '
-        let g:airline_right_alt_sep = '|'
-        let g:airline_symbols.linenr = ''
-        let g:airline_symbols.branch = 'Y'
-        let g:airline_symbols.readonly = 'RO'
-        let g:airline_symbols.maxlinenr = ''
-    endif
-endfunction
-autocmd VimEnter * call AirlineInit()
+"endif
+"
+"let g:airline_skip_empty_sections = 1
+"let g:airline#extensions#tabline#ignore_bufadd_pat =
+"  \ 'gundo|undotree|vimfiler|tagbar|nerd_tree|startify|!'
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#show_tabs = 0
+"let g:airline#extensions#tabline#show_buffers = 1
+"let g:airline#extensions#tabline#formatter = 'unique_tail'
+"
+"function! AirlineInit()
+"    "let g:airline_detect_spell = 0
+"    "let g:airline#extensions#tabline#fnamemod = ':t'
+"    "let g:airline#extensions#tabline#show_tab_type = 1
+"    "let g:airline#extensions#syntastic#enabled = 1
+"    "let g:airline#extensions#whitespace#enabled = 0
+"    "let g:airline#extensions#whitespace#show_message = 1
+"    if !exists('g:airline_mode_map')
+"        let g:airline_mode_map = {}
+"    endif
+"
+"    let g:airline_mode_map = {
+"        \ '__' : '-',
+"        \ 'n'  : 'N',
+"        \ 'i'  : 'I',
+"        \ 'R'  : 'R',
+"        \ 'c'  : 'C',
+"        \ 'v'  : 'V',
+"        \ 'V'  : 'V',
+"        \ '' : 'V',
+"        \ 's'  : 'S',
+"        \ 'S'  : 'S',
+"        \ '' : 'S',
+"        \ }
+"
+"    " For more symbols refer to :help airline-customization
+"    if (g:airline_powerline_fonts == 1)
+"        " For regular fonts only
+"        if !exists('g:airline_symbols')
+"          let g:airline_symbols = {}
+"        endif
+"
+"        " powerline symbols
+"        let g:airline_left_sep          = ''
+"        let g:airline_left_alt_sep      = ''
+"        let g:airline_right_sep         = ''
+"        let g:airline_right_alt_sep     = ''
+"        "let g:airline_symbols.linenr    = '☰'
+"        let g:airline_symbols.branch    = ''
+"        let g:airline_symbols.readonly  = ''
+"        let g:airline_symbols.maxlinenr = ''
+"        let g:airline_symbols.paste     = 'Þ'
+"    else
+"        " For regular fonts only
+"        if !exists('g:airline_symbols')
+"          let g:airline_symbols = {}
+"        endif
+"
+"        " ascii symbols
+"        let g:airline_left_sep = ' '
+"        let g:airline_left_alt_sep = '|'
+"        let g:airline_right_sep = ' '
+"        let g:airline_right_alt_sep = '|'
+"        let g:airline_symbols.linenr = ''
+"        let g:airline_symbols.branch = 'Y'
+"        let g:airline_symbols.readonly = 'RO'
+"        let g:airline_symbols.maxlinenr = ''
+"    endif
+"endfunction
+"autocmd VimEnter * call AirlineInit()
 
 
 """ 'chriskempson/base16-vim'
@@ -374,6 +413,7 @@ map <F7> mzgggqG`z
 :autocmd FileType cs set formatprg=astyle\ --mode=cs
 
 function! Format()
+    let l:save = winsaveview()
     silent! execute 'norm! mz'
     " Formatting depends on `formatprg' vaiable set when setting 'FileType'
     silent! execute 'norm! gggqG'
@@ -382,20 +422,38 @@ function! Format()
     silent! execute 'gg=G'
     silent! execute 'norm! `z'
     set formatprg=
+    call winrestview(l:save)
 endfunction
+command Format call Format()
 
 function! RemoveTrailingSpaces()
+    let l:save = winsaveview()
     silent! execute '%s/\s\+$//ge'
     silent! execute 'g/\v^$\n*%$/norm! dd'
+    call winrestview(l:save)
 endfunction
 command RemoveTrailingSpaces call RemoveTrailingSpaces()
+
+function! ToggleDrawMode()
+   if !exists('b:drawmode')
+      let b:drawmode = 1
+      set virtualedit=all
+      echo "Draw Mode   n:R replace, help:boxdraw vb:+o box, vb:+- h-line, vb:+> h-arrow"
+   else
+      unlet b:drawmode
+      set virtualedit=block " block, insert, all, onemore
+      echo "Draw Mode OFF"
+   endif
+endfunction
+command DrawMode call ToggleDrawMode()
+
 
 "#############################################################################
 " GUI settings (.gvimrc)
 "#############################################################################
 if has("gui_running")
     if has("gui_gtk2") || has("gui_gtk3")
-        let g:airline_powerline_fonts = 1
+        "let g:airline_powerline_fonts = 1
         "set guifont=Meslo\ LG\ S\ DZ\ 13
         "set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline\ 11
         "set guifont=Bistream\ Vera\ Sans\ Mono\ 11
@@ -425,7 +483,7 @@ if has("gui_running")
     endif
 
     " vertical space between text lines.
-    set linespace=-1
+    set linespace=0
 
     " Remove top menus and toolbars by default
     set guioptions-=b
@@ -442,11 +500,11 @@ if has("gui_running")
         \endif<CR>
 endif
 
-
 "#############################################################################
 " Syntax highlight for custom file extensions
 "#############################################################################
 au BufNewFile,BufRead *.lds  set filetype=ld
 au BufNewFile,BufRead *.rdl  set filetype=systemrdl
 "au BufNewFile,BufRead *.tcfg set filetype=perl
-
+au BufNewFile,BufRead *.inc  set filetype=verilog_systemverilog
+au BufNewFile,BufRead *.def  set filetype=verilog_systemverilog

@@ -1,0 +1,52 @@
+[user]
+   name = Del Rio Ruiz, Alberto
+   email = alberto.del.rio.ruiz@intel.com
+[http]
+   sslVerify = false
+[push]
+   default = simple
+[color]
+   ui = auto
+[merge]
+   tool = meld
+   conflictstyle = diff3
+[mergetool]
+   prompt = false
+[mergetool "meld"]
+   prompt=false
+   cmd = meld "$LOCAL" "$MERGED" "$REMOTE" --output "$MERGED"
+   #cmd = meld "$LOCAL" "$BASE" "$REMOTE" --output "$MERGED"
+[diff]
+   tool = meld
+   mnemonicprefix = true
+   renames = true
+[difftool]
+   prompt = false
+[difftool "meld"]
+   cmd = meld "$LOCAL" "$REMOTE"
+[alias]
+   ci = commit
+   co = checkout
+   lchanges = "!csh -c 'git fetch $1 ; if($#argv>0) shift; git log FETCH_HEAD..HEAD $*'"
+   ldiffchanges = "!csh -c 'git fetch $1 ; if($#argv>0) shift; git diff FETCH_HEAD..HEAD $*'"
+   lfchanges = "!csh -c 'git fetch $1 ; if($#argv>0) shift; git log --pretty=\"format:\" --name-only FETCH_HEAD..HEAD $* | sort | uniq'"
+   parent = remote show -n origin
+   rchanges = "!csh -c 'git fetch $1 ; if($#argv>0) shift; git log HEAD..FETCH_HEAD $*'"
+   rdiffchanges = "!csh -c 'git fetch $1 ; if($#argv>0) shift; git diff HEAD..FETCH_HEAD $*'"
+   rfchanges = "!csh -c 'git fetch $1 ; if($#argv>0) shift; git log --pretty=\"format:\" --name-only HEAD..FETCH_HEAD $* | sort | uniq'"
+   root = rev-parse --show-toplevel
+   st = status
+   status-modified = "!csh -c 'git status . | grep modified: | cut -d \" \" -f 4'"
+   status-new = "!csh -c 'git status . | grep new: | cut -d \" \" -f 4'"
+   status-renamed = "!csh -c 'git status . | grep renamed: | cut -d \" \" -f 4'"
+   status-deleted = "!csh -c 'git status . | grep deleted: | cut -d \" \" -f 4'"
+   diffd = "!git difftool --dir-diff"
+[core]
+   pager = less -FRSX
+   preloadindex = true
+[intel]
+   userInitVersion = 1
+[log]
+   decorate = true
+[pack]
+   threads = 0
